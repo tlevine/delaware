@@ -16,3 +16,22 @@ Content-Type: application/x-www-form-urlencoded
 Content-Length: 71
 
 JSPName=GINAMESEARCH&frmEntityName=&frmFileNumber=5381673&action=Search
+
+
+
+Result
+=========
+Host: delecorp.delaware.gov
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://delecorp.delaware.gov/tin/controller
+Cookie: JSESSIONID=0000oWB9xF1S_qc0L-xElSdew_w:14f6oop84
+Connection: keep-alive
+
+
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 68
+
+JSPName=GINAMESEARCH&action=Get+Entity+Details&frmFileNumber=5381673
