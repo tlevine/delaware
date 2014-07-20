@@ -52,10 +52,20 @@ we try without assigning jobs to particular workers.
 
 
 ### Running jobs
+Once the bot has been directed to look up a particular file number, it queries
+the Deleware corporations site accordingly. It goes to the starting page for
+the General Information Name Search (called ``home`` in the code). It enters
+the file number and receives a list of up to one company. (This page is called
+a ``search`` in the code.) It then goes to this maybe-company page (called
+``result`` in the code).
 
+At every step, the bot
 
-
+* minimally parses the web page so that it may advance to the next step,
+* sends simplified HTTP response information to the manager
+* pauses randomly for a time on the order of a second to avoid looking so obviously like a bot
 
 ### Waiting
-The worker waits a random time before repeating the process again. This way,
-the bots may look a bit less like bots and thus be harder to block.
+The worker waits a random time on the order of minutes or hours before
+repeating the above process. This way, the bots may look a bit less like
+bots and thus be harder to block.
