@@ -1,7 +1,8 @@
 from bottle import Bottle, run, request, response
 
-import db
+from db import Dadabase
 
+db = Dadabase('sqlite:////home/tlevine/foo.db')
 b = Bottle()
 
 @b.post('/v1/')
