@@ -1,8 +1,8 @@
 from functools import partial
 
-import worker.download as dl
-import worker.direction as d
-from worker.params import params
+import delaworker.download as dl
+import delaworker.direction as d
+from delaworker.params import params
 
 def main():
     manager_address, username, installation = params()
