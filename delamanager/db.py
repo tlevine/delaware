@@ -13,6 +13,19 @@ class Dadabase:
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
         for row in self.disk.query(sql):
             self.file_numbers[row['file_number']] = row['count(*)']
+
+    def file_number(self):
+        '''
+        Choose a file number to download.
+        It is randomly chosen among the file numbers with the fewest responses.
+        '''
+        lowest = min(self.file_numbers.values())
+        population = [file_number for file_number, count in self.file_numbers.items() if count == lowest]
+        if len(population) > 0:
+            return random.choice(population)
+        else:
+            return self.random_file_number()
+
     def under_limit(self, ip_address):
         'Return True if we are under the limit and it is safe to query the website.'
         params = [datetime.date.today() - TIMESPAN, ip_address]
@@ -22,6 +35,3 @@ class Dadabase:
     def increment_file_number(self, file_number):
         self.disk.insert({'file_number':file_number})
         self.file_numbers['file_number'] += 1
-
-db = Dadabase('sqlite:////home/tlevine/foo.db')
-

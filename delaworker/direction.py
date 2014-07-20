@@ -4,6 +4,10 @@ from hashlib import sha1
 
 import requests
 
+from db import Dadabase
+
+db = Dadabase('sqlite:////home/tlevine/foo.db')
+
 def salt(username, installation):
     return sha1(manager_address.encode('utf-8') + installation.encode('utf-8')).hexdigest()
 
