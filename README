@@ -107,3 +107,13 @@ to write a separate thing for that.
 The worker waits a random time on the order of minutes or hours before
 repeating the above process. This way, the bots may look a bit less like
 bots and thus be harder to block.
+
+## Questions you might have
+Why not just in-browser Javascript?
+    We can't make cross-domain requests, so we'd have to inject something into the Deleware page, and that's annoying, especially for this site.
+
+Doesn't OpenCorporates already have it?
+    OpenCorporates doesn't have it.
+
+Have people done similar things in terms of this distibuted API?
+    Probably
