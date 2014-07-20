@@ -18,7 +18,9 @@ single manager, so it's not that big a deal, actually.
 ### Deciding jobs
 The worker contacts the manager asking for a job.
 
-    POST https://$username:$installationid@deleware.dada.pink/job
+    POST https://$username:$installationid@deleware.dada.pink/directions
+
+We use ``POST`` to avoid cache issues.
 
 The ``$username`` is chosen by the user so she can get points for her efforts.
 The ``$installationid`` is a UUID chosen when the program is first run. It acts
@@ -64,6 +66,39 @@ At every step, the bot
 * minimally parses the web page so that it may advance to the next step,
 * sends simplified HTTP response information to the manager
 * pauses randomly for a time on the order of a second to avoid looking so obviously like a bot
+
+The HTTP responses look like this. ::
+
+    POST https://$username:$installationid@deleware.dada.pink/response
+    before_ip_address: 123.456.67.89
+    body is the serialized request
+
+### Saving information on the manager
+When the manager recieves a response, it first needs to determine an
+additional piece of information. The worker has provided the "before"
+IP address; the manager now determines the "after" IP address.
+
+Having determined this, it writes the following stuff to a simple log file.
+
+* username
+* installation id
+* before ip address
+* after ip address
+* serialized request
+
+It also saves the IP address(es) in an IP address table. We maintain this
+table so we can avoid exceeding thresholds for IP blocking. If the before
+and after IP addresses are different, we conservatively count the request
+as having come from both addresses.
+
+Finally, it parses the file number from the response and updates the
+sampling weights for the file number selection.
+
+A separate process comes along later, reads the log files, and reads more
+information from the response. The involved parsing is moved to a separate
+task for two main reasons. First, this reduces the load of the manager.
+Second, we can reuse the separate task for loading backups; we don't need
+to write a separate thing for that.
 
 ### Waiting
 The worker waits a random time on the order of minutes or hours before
