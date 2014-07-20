@@ -3,3 +3,34 @@ According to `this random webpage <http://blog.delawareinc.com/delaware-state-fi
 > The Delaware state file number is the number the state of Delaware issues to each new company at the time of formation. It is formatted with seven numbers. For example, 1234567. Each new Delaware company will be one digit higher than the company before it. It is the number that you can use to identify your company when dealing with the Delaware secretary of state.
 
 Thus, I think "File Number" is a decent way to look up companies.
+
+
+
+## Architecture
+My inclination is to use a worker-manager architecture, but maybe I should
+use something less classist? Peer-to-peer connections are annoying because
+of port blocking of various sorts, but that would be nice because then I
+don't need to be responsible.
+
+I think the process will be quite similar if I use peers to if I use a
+single manager, so it's not that big a deal, actually.
+
+### Deciding jobs
+The worker contacts the manager asking for a job.
+
+    GET /job
+
+In response, the worker will receive a file number and an IP address. The
+IP address is the worker's own IP address, and the manager can figure that
+out pretty easily.
+
+The file number is chosen randomly from the list of file numbers. The sampling
+(not normalized) weight is equal to two to the negative power of the number
+of responses for this file number so far.
+
+> 4 ^ (- responses.so.far)
+
+For example, everything has equal weights (1) when we start because there have
+been zero responses so far. Then when things get selected the first time, they
+have lower weights (1/4). This way, we can be intelligent about which file numbers
+we try without assigning jobs to particular workers.
