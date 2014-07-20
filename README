@@ -27,8 +27,11 @@ person's username, we can separate the real person's results from the other
 person's results.
 
 In response, the worker will receive either a status code of 429
-(too many requests) or a status code of 200. If it returns a status code
-of 200, it also provides the following information
+(too many requests) or a status code of 200. The manager decides which one
+based on how many requests have come from this IP address recently. It
+
+If the manager provides a status code of 200, it also provides the following
+information.
 
 * a file number to look up
 * an IP address, called the "before" address.
@@ -47,5 +50,12 @@ been zero responses so far. Then when things get selected the first time, they
 have lower weights (1/4). This way, we can be intelligent about which file numbers
 we try without assigning jobs to particular workers.
 
+
 ### Running jobs
 
+
+
+
+### Waiting
+The worker waits a random time before repeating the process again. This way,
+the bots may look a bit less like bots and thus be harder to block.
