@@ -1,0 +1,30 @@
+Still nobody has downloaded the Deleware corporations registry,
+as far as I can tell.
+https://delecorp.delaware.gov/tin/GINameSearch.jsp
+
+This might contain some juicy information on all of the companies
+who register there for the tax benefits. Wanna help me get this?
+
+## The help I want
+It's hard because they block IP addresses pretty quickly. I don't
+know how quickly, but I'll figure that out. So I'm writing something
+in the style of Folding at Home in order to have access to lots of
+IP addresses.
+https://github.com/tlevine/delaware
+
+This involves some coordination among computers, and I don't trust
+myself to do that very well. The simplest thing is to have everything
+contact one central manager, and I don't trust myself to keep that
+manager from crashing. A fancier thing would be a socialist peer-to-peer
+thing where the workers also manage the means of production, and I
+don't trust myself to write that well.
+
+Also, if you've already played with this site and know something about
+the errors it gives or the methods of blocking, that would be helpful.
+
+## Technical details
+I'm writing the worker in Python because it comes installed on
+most POSIX systems and because this,
+http://dada.pink/dada/web-sites-to-data-tables-in-depth/
+
+but the server could be written in something else.
