@@ -26,13 +26,14 @@ as a password; this way, if someone tries to submit fake results under another
 person's username, we can separate the real person's results from the other
 person's results.
 
-In response, the worker will receive
+In response, the worker will receive either a status code of 429
+(too many requests) or a status code of 200. If it returns a status code
+of 200, it also provides the following information
 
-* a file number
-* an IP address.
+* a file number to look up
+* an IP address, called the "before" address.
 
-The
-IP address is the worker's own IP address, and the manager can figure that
+The IP address is the worker's own IP address, and the manager can figure that
 out pretty easily.
 
 The file number is chosen randomly from the list of file numbers. The sampling
