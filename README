@@ -18,9 +18,20 @@ single manager, so it's not that big a deal, actually.
 ### Deciding jobs
 The worker contacts the manager asking for a job.
 
-    GET /job
+    POST https://$username:$installationid@deleware.dada.pink/job
 
-In response, the worker will receive a file number and an IP address. The
+The ``$username`` is chosen by the user so she can get points for her efforts.
+The ``$installationid`` is a UUID chosen when the program is first run. It acts
+as a password; this way, if someone tries to submit fake results under another
+person's username, we can separate the real person's results from the other
+person's results.
+
+In response, the worker will receive
+
+* a file number
+* an IP address.
+
+The
 IP address is the worker's own IP address, and the manager can figure that
 out pretty easily.
 
@@ -34,3 +45,6 @@ For example, everything has equal weights (1) when we start because there have
 been zero responses so far. Then when things get selected the first time, they
 have lower weights (1/4). This way, we can be intelligent about which file numbers
 we try without assigning jobs to particular workers.
+
+### Running jobs
+
