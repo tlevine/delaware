@@ -2,6 +2,7 @@ from functools import partial
 
 import worker.download as dl
 import worker.direction as d
+from worker.params import params
 
 def main():
     manager_address, username, installation = params()
@@ -11,9 +12,6 @@ def main():
     while True:
         firm_file_number, before_address = get_work(directions, sleep)
         do_work(firm_file_number, partial(respond, before_address))
-
-def params():
-    raise NotImplementedError
 
 def get_work(directions, sleep):
     while True:
