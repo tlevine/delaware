@@ -34,10 +34,6 @@ def to_dict(response):
         'url': response.url,
     }
 
-def did_it_work_home(response):
-    'I think this always works.'
-    return True
-
 def did_it_work_search(firm_file_number, response):
     '''
     If it worked, the file number shows up in both

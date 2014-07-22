@@ -15,9 +15,10 @@ def work(local = False):
         respond = partial(remote.respond, parse.to_json, manager_address, username, installation)
         directions = partial(remote.directions, manager_address, username, installation)
     sleep = dl.sleep
+    home_response = None
     while True:
         firm_file_number, before_address = get_work(directions, sleep)
-        do_work(firm_file_number, partial(respond, before_address, firm_file_number))
+        home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
 
 def get_work(directions, sleep):
     while True:
@@ -27,12 +28,17 @@ def get_work(directions, sleep):
         else:
             return answer
 
-def do_work(firm_file_number, respond, dl = dl):
+def do_work(home_response, firm_file_number, respond, dl = dl):
     'Given a firm file number, try to get the information.'
-    home_response = dl.home()
-    respond(home_response, False)
-    for firm_file_number in firm_file_numbers:
-        search_response = dl.search(home_response, firm_file_number)
-        respond(search_response, False)
-        result_response = dl.result(search_response, firm_file_number):
-        respond(result_response, True)
+    if home_response == None:
+        home_response = dl.home()
+        respond(home_response, False)
+
+    search_response = dl.search(home_response, firm_file_number)
+    respond(search_response, parse.did_it_work_search(search_response))
+    if parse.is_session_valid(search_response)
+    
+    result_response = dl.result(search_response, firm_file_number):
+    respond(result_response, True)
+
+    return home_response
