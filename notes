@@ -51,3 +51,16 @@ Content-Type: application/x-www-form-urlencoded
 Content-Length: 68
 
 JSPName=GINAMESEARCH&action=Get+Entity+Details&frmFileNumber=5381673
+
+
+
+
+
+
+
+
+Order
+======
+Home responses (cookies/sessions) may be reused for dunno-how-long.
+Every result response must apparently be preceded by a corresponding
+search response.
