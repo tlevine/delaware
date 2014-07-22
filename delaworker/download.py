@@ -44,16 +44,18 @@ data = {
     'result': 'JSPName=GINAMESEARCH&action=Get+Entity+Details&frmFileNumber=%d',
 }
 
-@cache(os.path.join(os.path.expanduser('~'), '.deleware', 'home'))
+week = datetime.date.today().strftime('%Y-%W')
+
+@cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'home'))
 def _home(datetime, user_agent = None):
     return requests.get(urls['home'], headers = headers(user_agent))
 
-@cache(os.path.join(os.path.expanduser('~'), '.deleware', 'search'))
+@cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'search'))
 def _search(firm_file_number, user_agent = None, cookie = None):
     h = headers(user_agent, cookie = cookie, referer = referers['search'])
     return requests.post(urls['search'], headers = h, data = data['search'] % firm_file_number)
 
-@cache(os.path.join(os.path.expanduser('~'), '.deleware', 'result'))
+@cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'result'))
 def _result(firm_file_number, user_agent = None, cookie = None):
     h = headers(user_agent, cookie = cookie, referer = referers['result'])
     return requests.post(urls['result'], headers = h, data = data['result'] % firm_file_number)

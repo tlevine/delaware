@@ -3,7 +3,8 @@ from functools import partial
 import delaworker.local as local
 import delaworker.download as dl
 import delaworker.remote as remote
-from delaworker.params import params
+import delaworker.parse as parse
+from delaworker.params import params, argparser
 
 def work(local = False):
     if local:
@@ -11,7 +12,7 @@ def work(local = False):
         directions = local.directions
     else:
         manager_address, username, installation = params()
-        respond = partial(remote.respond, manager_address, username, installation)
+        respond = partial(remote.respond, parse.to_json, manager_address, username, installation)
         directions = partial(remote.directions, manager_address, username, installation)
     sleep = dl.sleep
     while True:
