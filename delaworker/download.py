@@ -67,16 +67,16 @@ def sleep():
 
 def home():
     'Go to the home page. Never load from cache.'
-    return home(datetime.datetime.now(), user_agent = get_user_agent())
+    return _home(datetime.datetime.now(), user_agent = get_user_agent())
 
 def search(home_response, firm_file_number):
     'Search for a firm, loading from the cache if possible'
     user_agent = home_response.request.headers['User-Agent']
     cookie = home_response.request.cookies
-    return search(firm_file_number, user_agent = user_agent, cookie = cookie)
+    return _search(firm_file_number, user_agent = user_agent, cookie = cookie)
 
 def result(search_response, firm_file_number):
     'Look at detailed information about a firm, loading from the cache if possible'
     user_agent = home_response.request.headers['User-Agent']
     cookie = home_response.request.cookies
-    return result(firm_file_number, user_agent = user_agent, cookie = cookie)
+    return _result(firm_file_number, user_agent = user_agent, cookie = cookie)
