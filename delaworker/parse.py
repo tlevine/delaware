@@ -54,3 +54,20 @@ def did_it_work_result(firm_file_number, response):
     the search bar.
     '''
     return response.text.count('%07d' % firm_file_number) == 2
+
+
+def is_session_valid(response):
+    '''
+    It's not valid if you see something like this.
+
+    > ERROR SCREEN
+    >
+    > System error has occurred with the following error message
+    >
+    > Illegal Attempt
+    >
+    > Please logout and report this problem to help desk.
+    >
+    > Thank you.
+
+    '''
