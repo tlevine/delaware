@@ -46,9 +46,6 @@ data = {
 
 week = datetime.date.today().strftime('%Y-%W')
 
-@cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'home'))
-def _home(datetime, user_agent = None):
-    return requests.get(urls['home'], headers = headers(user_agent), allow_redirects = False)
 
 @cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'search'))
 def _search(firm_file_number, user_agent = None, cookie = None):
@@ -67,16 +64,17 @@ def sleep():
 
 def home():
     'Go to the home page. Never load from cache.'
-    return _home(datetime.datetime.now(), user_agent = get_user_agent())
+    user_agent = get_user_agent())
+    return requests.get(urls['home'], headers = headers(user_agent), allow_redirects = False)
 
 def search(home_response, firm_file_number):
     'Search for a firm, loading from the cache if possible'
     user_agent = home_response.request.headers['User-Agent']
-    cookie = home_response.request.cookies
+    cookie = home_response.cookies
     return _search(firm_file_number, user_agent = user_agent, cookie = cookie)
 
 def result(search_response, firm_file_number):
     'Look at detailed information about a firm, loading from the cache if possible'
     user_agent = home_response.request.headers['User-Agent']
-    cookie = home_response.request.cookies
+    cookie = home_response.cookies
     return _result(firm_file_number, user_agent = user_agent, cookie = cookie)
