@@ -1,6 +1,4 @@
-import json
-
-def to_json(response):
+def to_dict(response):
     '''
     Simplify a Response object and dump it to JSON.'
     '''
@@ -11,7 +9,7 @@ def to_json(response):
         'path_url': response.request.path_url,
         'url': response.request.url,
     }
-    return json.dumps({
+    return {
        #'apparent_encoding': ,
        #'close': ,
        #'connection': ,
@@ -34,7 +32,7 @@ def to_json(response):
         'status_code': response.status_code,
         'text': response.text,
         'url': response.url,
-    })
+    }
 
 def did_it_work_home(response):
     'I think this always works.'
