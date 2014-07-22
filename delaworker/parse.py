@@ -38,8 +38,19 @@ def did_it_work_home(response):
     'I think this always works.'
     return True
 
-def did_it_work_search(response):
-    raise NotImplementedError
+def did_it_work_search(firm_file_number, response):
+    '''
+    If it worked, the file number shows up in both
+    the search bar and the result list. If it didn't,
+    the file number shows up only in the search bar.
+    '''
+    return response.text.count('%07d' % firm_file_number) == 2
 
-def did_it_work_result(response):
-    raise NotImplementedError
+def did_it_work_result(firm_file_number, response):
+    '''
+    If it worked, the file number shows up in both
+    a hidden input field and the "File Number" field.
+    If it didn't, the file number shows up only in
+    the search bar.
+    '''
+    return response.text.count('%07d' % firm_file_number) == 2
