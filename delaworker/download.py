@@ -1,5 +1,7 @@
 import os
 import datetime
+import random
+import time
 
 from randua import generate as get_user_agent
 from picklecache import cache
@@ -55,6 +57,11 @@ def _search(firm_file_number, user_agent = None, cookie = None):
 def _result(firm_file_number, user_agent = None, cookie = None):
     h = headers(user_agent, cookie = cookie, referer = referers['result'])
     return requests.post(urls['result'], headers = h, data = data['result'] % firm_file_number)
+
+def sleep():
+    seconds = sum(random.randint(0,1) for _ in range(100)) / 10
+    time.sleep(seconds)
+    return seconds
 
 def home():
     'Go to the home page. Never load from cache.'

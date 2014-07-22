@@ -2,7 +2,7 @@ from functools import partial
 
 import delaworker.local as local
 import delaworker.download as dl
-import delaworker.direction as d
+import delaworker.remote as remote
 from delaworker.params import params
 
 def work(local = False):
@@ -11,9 +11,9 @@ def work(local = False):
         directions = local.directions
     else:
         manager_address, username, installation = params()
-        respond = partial(d.respond, manager_address, username, installation)
-        directions = partial(d.directions, manager_address, username, installation)
-    sleep = d.sleep
+        respond = partial(remote.respond, manager_address, username, installation)
+        directions = partial(remote.directions, manager_address, username, installation)
+    sleep = dl.sleep
     while True:
         firm_file_number, before_address = get_work(directions, sleep)
         do_work(firm_file_number, partial(respond, before_address, firm_file_number))

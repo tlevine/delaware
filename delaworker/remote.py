@@ -1,5 +1,3 @@
-import random
-import time
 from hashlib import sha1
 
 import requests
@@ -32,8 +30,3 @@ def directions(manager_address, username, installation):
     if r.ok:
         data = json.loads(r.text)
         return data['file_number'], data['before_address']
-
-def sleep():
-    seconds = sum(random.randint(0,1) for _ in range(100)) / 10
-    time.sleep(seconds)
-    return seconds
