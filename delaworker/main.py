@@ -21,6 +21,11 @@ def work(local = False):
         home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
 
 def get_work(directions, sleep):
+    '''
+    Periodically poll for work orders.
+    Return the work orders if there are any
+    or None if there aren't.
+    '''
     while True:
         answer = directions()
         if answer == None:
@@ -36,9 +41,12 @@ def do_work(home_response, firm_file_number, respond, dl = dl):
 
     search_response = dl.search(home_response, firm_file_number)
     respond(search_response, parse.did_it_work_search(search_response))
-    if parse.is_session_valid(search_response)
-    
-    result_response = dl.result(search_response, firm_file_number):
-    respond(result_response, True)
+    if not parse.is_session_valid(search_response):
+        return None
+
+    result_response = dl.result(search_response, firm_file_number)
+    respond(result_response, parse.did_it_work_result(result_response))
+    if not parse.is_session_valid(result_response):
+        return None
 
     return home_response
