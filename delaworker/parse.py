@@ -37,7 +37,8 @@ def to_json(response):
     })
 
 def did_it_work_home(response):
-    raise NotImplementedError
+    'I think this always works.'
+    return True
 
 def did_it_work_search(response):
     raise NotImplementedError

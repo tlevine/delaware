@@ -41,7 +41,7 @@ referers = {
 data = {
     'home': None,
     'search': 'JSPName=GINAMESEARCH&frmEntityName=&frmFileNumber=%d&action=Search',
-    'result': 'JSPName=GINAMESEARCH&action=Get+Entity+Details&frmFileNumber=%d',
+    'result': 'JSPName=GINAMESEARCH&action=Get+Entity+Details&frmFileNumber=%07d',
 }
 
 week = datetime.date.today().strftime('%Y-%W')
