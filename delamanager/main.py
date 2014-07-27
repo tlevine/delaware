@@ -2,22 +2,32 @@ from bottle import Bottle, run, request, response
 
 from db import Dadabase
 
-db = Dadabase('sqlite:////home/tlevine/foo.db')
+db = Dadabase('sqlite:////home/tlevine/foo.db', '/home/tlevine/foo')
 b = Bottle()
 
+def rate_limit(f):
+    def wrapper():
+        if db.under_limit(request.remote_route):
+            return f()
+        else:
+            response.status_code = 429
+    return wrapper
+
 @b.post('/directions')
+@rate_limit
 def directions():
-    before = request.remote_route
-    if db.under_limit(before):
-        response.status_code = 200
-        return json.dumps({
-            'before_address': before,
-            'file_number': db.file_number(),
-        })
-    else:
-        response.status_code = 429
+    db.save_request(request)
+    ip_address = request.remote_route
+    return json.dumps({
+        'ip_address': ip_address,
+        'file_number': db.file_number(),
+    })
 
 @b.post('/response')
+@rate_limit
 def response():
-    after = request.remote_route
-    db.
+    db.save_request(request)
+    ip_address = request.remote_route
+    return {
+        'ip_address': ip_address,
+    }

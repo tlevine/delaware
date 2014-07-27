@@ -1,3 +1,5 @@
+import os
+import datetime
 from collections import Counter
 import datetime
 
@@ -7,8 +9,10 @@ TIMESPAN = 10
 LIMIT = 100
 
 class Dadabase:
-    def __init__(self, url):
-        self.disk = dataset.connect(url)
+    def __init__(self, dburl, requestdir):
+        self.disk = dataset.connect(dburl)
+        if not os.path.isdir(requestdir):
+            os.makedirs(requestdir)
         self.file_numbers = {file_number:0 for file_number in range(1, 8 * 10**6)}
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
         for row in self.disk.query(sql):
@@ -35,3 +39,14 @@ class Dadabase:
     def increment_file_number(self, file_number):
         self.disk.insert({'file_number':file_number})
         self.file_numbers['file_number'] += 1
+
+    def save_request(self, request, filename = datetime.date.today().isoformat()):
+        data = {
+            'date': datetime.datetime.today().ctime(),
+            'ip_address', request.remote_addr,
+            'method': request.method,
+            'url': request.url,
+            'data': request.data,
+        }
+        with open(os.path.join(self.requestdir, filename, 'a') as fp:
+            fp.write(json.dumps(data) + '\n')
