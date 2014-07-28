@@ -21,4 +21,7 @@ def test_read_config_params():
     n.assert_tuple_equal(observed, expected)
 
 def test_write_config_params():
-    pass
+    tmp = tempfile.NamedTemporaryFile()
+    copyfile(CONFIG, tmp.name)
+    p.write_config_params('https://delaware.dada.pink', 'tlevine',
+                          '065db5d3-924c-4129-9c93-2360538a4ce5', tmp.name)

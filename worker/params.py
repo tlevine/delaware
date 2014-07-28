@@ -1,4 +1,7 @@
-import configparser
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import ConfigParser
 import os
 import uuid
 from getpass import getuser
@@ -37,7 +40,7 @@ def prompt_params():
     return manager_address, username
 
 def read_config_params(filename):
-    c = configparser.ConfigParser()
+    c = ConfigParser()
     c.read(filename)
 
     manager_address = c.get(SECTION, 'manager_address', fallback = None)
@@ -48,7 +51,7 @@ def read_config_params(filename):
         return manager_address, username, installation
 
 def write_config_params(manager_address, username, installation, filename):
-    c = configparser.ConfigParser()
+    c = ConfigParser()
     c.add_section(SECTION)
     c.set(SECTION, 'manager_address', value = manager_address)
     c.set(SECTION, 'username', value = username)
