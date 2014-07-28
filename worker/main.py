@@ -34,7 +34,12 @@ def get_work(directions, sleep):
             return answer
 
 def do_work(home_response, firm_file_number, respond, dl = dl):
-    'Given a firm file number, try to get the information.'
+    '''
+    Given a firm file number, try to get the information.
+
+    If the session is still valid, return the home_response
+    so the cookie can be reused.
+    '''
     if home_response == None:
         home_response = dl.home()
         respond(home_response, False)
