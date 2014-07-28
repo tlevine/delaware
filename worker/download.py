@@ -24,6 +24,8 @@ def headers(user_agent, cookie, referer):
             h['Referer'] = referer
         else:
             raise ValueError('A cookie must be provided if a referer has been provided.')
+    elif referer != None:
+        raise ValueError('A referer must be provided if a cookie has been provided.')
     return h
 
 urls = {
