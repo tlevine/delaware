@@ -1,10 +1,10 @@
 from functools import partial
 
-import delaworker.local as local
-import delaworker.download as dl
-import delaworker.remote as remote
-import delaworker.parse as parse
-from delaworker.params import params, argparser
+import worker.local as local
+import worker.download as dl
+import worker.remote as remote
+import worker.parse as parse
+from worker.params import params, argparser
 
 def work(local = False):
     if local:
