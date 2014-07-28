@@ -11,7 +11,7 @@ class TestDadabase(TestCase):
         if os.path.exists(TMP):
             rmtree(TMP)
         os.makedir(TMP)
-        self.dburl = 'sqlite:///:memory:'
+        self.dburl = 'sqlite://:memory:'
         self.db = Dadabase(self, self.dburl, TMP)
 
     def tearDown(self):
@@ -50,19 +50,20 @@ class TestDadabase(TestCase):
 
         n.assert_true(self.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))
 
-       #result = db.query('SELECT count(*) FROM requests WHERE datetime > ? AND ip_address > ?', params)
-       #return next(result['count(*)']) < LIMIT
-
     def test_increment_file_number(self):
         file_number = 82342
 
-        self.db.disk['file_numbers'] # and select stuff
-        self.db.file_numbers[file_number]
+        sql = 'SELECT count(*) FROM file_number WHERE file_number = %d'
+        disk_before  = self.db.disk.query(sql % file_number)[0]['count(*)']
+        memory_before= self.db.file_numbers[file_number]
 
         self.db.increment_file_number(file_number)
 
-        self.db.disk['file_numbers'] # and select stuff
-        self.db.file_numbers[file_number]
+        disk_after  = self.db.disk.query(sql % file_number)[0]['count(*)']
+        memory_after= self.db.file_numbers[file_number]
+
+        n.assert_equal(disk_before + 1, disk_after)
+        n.assert_equal(memory_before + 1, memory_after)
 
     def test_save_request(self):
         pass
