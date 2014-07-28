@@ -1,6 +1,6 @@
 from shutil import rmtree
 from unittest import TestCase
-from tempfile import tempdir
+from tempfile import tempdir, NamedTemporaryFile
 
 from db import Dadabase, TIMESPAN, LIMIT
 
@@ -66,4 +66,24 @@ class TestDadabase(TestCase):
         n.assert_equal(memory_before + 1, memory_after)
 
     def test_save_request(self):
-        pass
+        ip_address = '12.82.2.9'
+        sql = 'SELECT count(*) FROM request WHERE ip_address = "%s"'
+        FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'data'])
+        fakerequest = FakeRequest(ip_address, 'post', '/directions', {'foo': 'bar'})
+        now = datetime.datetime(2014,4,3).ctime()
+
+        # Record db before.
+        before = self.db.disk.query(sql % ip_address)[0]['count(*)']
+        
+        # Do the actual thing.
+        tmp = NamedTemporaryFile()
+        self.save_request(fakerequest, filename = tmp.name, now = now)
+
+        tmp.seek(0)
+        one_log_line = json.loads(tmp)
+        n.assert_dict_equal(one_log_line, {})
+
+        # Record db after.
+        after  = self.db.disk.query(sql % ip_address)[0]['count(*)']
+
+        n.assert_equal(before + 1, after)

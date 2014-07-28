@@ -39,16 +39,16 @@ class Dadabase:
         if now = None:
             now = datetime.date.today()
         params = [now - TIMESPAN, ip_address]
-        result = db.query('SELECT count(*) FROM requests WHERE datetime > ? AND ip_address > ?', params)
+        result = db.query('SELECT count(*) FROM requests WHERE datetime > ? AND ip_address = ?', params)
         return next(result['count(*)']) < LIMIT
 
     def increment_file_number(self, file_number):
         self.disk.insert({'file_number':file_number})
         self.file_numbers['file_number'] += 1
 
-    def save_request(self, request, filename = datetime.date.today().isoformat()):
+    def save_request(self, request, filename = datetime.date.today().isoformat(), now = None):
         data = {
-            'date': datetime.datetime.today().ctime(),
+            'date': datetime.datetime.today().ctime() if now == None else now,
             'ip_address', request.remote_addr,
             'method': request.method,
             'url': request.url,
