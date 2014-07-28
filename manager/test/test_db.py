@@ -59,12 +59,12 @@ class TestDadabase(TestCase):
         file_number = 82342
 
         sql = 'SELECT count(*) FROM file_number WHERE file_number = %d'
-        disk_before  = self.db.disk.query(sql % file_number)[0]['count(*)']
+        disk_before  = next(self.db.disk.query(sql % file_number))['count(*)']
         memory_before= self.db.file_numbers[file_number]
 
         self.db.increment_file_number(file_number)
 
-        disk_after  = self.db.disk.query(sql % file_number)[0]['count(*)']
+        disk_after  = next(self.db.disk.query(sql % file_number))['count(*)']
         memory_after= self.db.file_numbers[file_number]
 
         n.assert_equal(disk_before + 1, disk_after)
@@ -72,23 +72,23 @@ class TestDadabase(TestCase):
 
     def test_save_request(self):
         ip_address = '12.82.2.9'
-        sql = 'SELECT count(*) FROM request WHERE ip_address = "%s"'
+        sql = 'SELECT count(*) FROM requests WHERE ip_address = "%s"'
         FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'data'])
         fakerequest = FakeRequest(ip_address, 'post', '/directions', {'foo': 'bar'})
         now = datetime.datetime(2014,4,3).ctime()
 
         # Record db before.
-        before = self.db.disk.query(sql % ip_address)[0]['count(*)']
+        before = next(self.db.disk.query(sql % ip_address))['count(*)']
         
         # Do the actual thing.
         tmp = NamedTemporaryFile()
-        self.save_request(fakerequest, filename = tmp.name, now = now)
+        self.db.save_request(fakerequest, filename = tmp.name, now = now)
 
         tmp.seek(0)
         one_log_line = json.loads(tmp)
         n.assert_dict_equal(one_log_line, {})
 
         # Record db after.
-        after  = self.db.disk.query(sql % ip_address)[0]['count(*)']
+        after  = next(self.db.disk.query(sql % ip_address))['count(*)']
 
         n.assert_equal(before + 1, after)
