@@ -2,7 +2,7 @@ from hashlib import sha1
 
 import requests
 
-def salt(username, installation):
+def salt(manager_address, installation):
     return sha1(manager_address.encode('utf-8') + installation.encode('utf-8')).hexdigest()
 
 def respond(to_json, manager_address, username, installation, before_address, file_number, response, finished):
