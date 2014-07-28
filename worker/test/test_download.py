@@ -22,8 +22,10 @@ def test_headers():
     n.assert_dict_equal(observed, expected)
 
     with n.assert_raises(ValueError):
-        headers('the user agent', 'the cookie', None)
+        headers(None, 'the cookie', 'the referer')
 
-  # What about this one?
-  # with n.assert_raises(ValueError):
-  #     headers('the user agent', None, 'the referer')
+    with n.assert_raises(ValueError):
+        headers('the user agent', None, 'the referer')
+
+    with n.assert_raises(ValueError):
+        headers('the user agent', 'the cookie', None)
