@@ -86,7 +86,7 @@ class TestDadabase(TestCase):
         self.db.save_request(fakerequest, filename = tmp.name, now = now)
 
         tmp.seek(0)
-        one_log_line = json.loads(tmp)
+        one_log_line = json.load(open(tmp.name,'r'))
         n.assert_dict_equal(one_log_line, {})
 
         # Record db after.
