@@ -1,13 +1,24 @@
 from unittest import TestCase
+from tempfile import tempdir
 
 from db import Dadabase
 
+TMP = os.path.join(tempdir, 'test-dadabase')
+
 class TestDadabase(TestCase):
     def setUp(self):
-        self.db = Dadabase(self, dburl, requestdir):
+        if os.path.exists(TMP):
+            pass # remove it
+        os.makedir(TMP)
+        self.dburl = 'sqlite:///' + os.path.join(TMP, 'dadabase.db')
+        self.requestdir = os.path.join(TMP, 'requests')
+        self.db = Dadabase(self, self.dburl, self.requestdir)
 
     def test_init(self):
-        pass
+        # do something to dburl and requestdir
+        db = Dadabase(self, self.dburl, self.requestdir)
+        n.assert_set_equal(set(db.file_numbers.values()), {0})
+
     def test_file_number(self):
         'The file number should be among those with the lowest counts.'
         self.db.file_numbers = {
@@ -20,6 +31,8 @@ class TestDadabase(TestCase):
 
     def test_under_limit(self):
         pass
+       #result = db.query('SELECT count(*) FROM requests WHERE datetime > ? AND ip_address > ?', params)
+       #return next(result['count(*)']) < LIMIT
 
     def test_increment_file_number(self):
         file_number = 82342
