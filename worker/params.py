@@ -1,7 +1,10 @@
 try:
+    # Python 3
     from configparser import ConfigParser
 except ImportError:
+    # Python 2
     from ConfigParser import ConfigParser
+    input = raw_input
 import os
 import uuid
 from getpass import getuser
@@ -41,7 +44,8 @@ def prompt_params():
 
 def read_config_params(filename):
     c = ConfigParser()
-    c.read(filename)
+    if c.read(filename) == []:
+        return
 
     manager_address = c.get(SECTION, 'manager_address')
     username = c.get(SECTION, 'username')
