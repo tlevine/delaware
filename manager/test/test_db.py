@@ -40,7 +40,7 @@ class TestDadabase(TestCase):
             2: 3,
             12: 2,
         }
-        n.assert_in({9,12}, self.db.file_number())
+        n.assert_in(self.db.file_number(), {9,12})
 
     def test_under_limit(self):
         ip_address = '1.2.3.4'
@@ -57,9 +57,9 @@ class TestDadabase(TestCase):
         n.assert_true(self.db.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))
 
     def test_increment_file_number(self):
-        file_number = 82342
+        file_number = 342
 
-        sql = 'SELECT count(*) FROM file_number WHERE file_number = %d'
+        sql = 'SELECT count(*) FROM file_numbers WHERE file_number = %d'
         disk_before  = next(self.db.disk.query(sql % file_number))['count(*)']
         memory_before= self.db.file_numbers[file_number]
 

@@ -1,5 +1,6 @@
 import json
 import os
+import random
 import datetime
 from collections import Counter
 
@@ -52,8 +53,8 @@ class Dadabase:
         return next(result)['count(*)'] < LIMIT
 
     def increment_file_number(self, file_number):
-        self.disk.insert({'file_number':file_number})
-        self.file_numbers['file_number'] += 1
+        self.disk['file_numbers'].insert({'file_number':file_number})
+        self.file_numbers[file_number] += 1
 
     def save_request(self, request, filename = datetime.date.today().isoformat(), now = None):
         data = {
