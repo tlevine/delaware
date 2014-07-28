@@ -7,7 +7,7 @@ from randua import generate as get_user_agent
 from picklecache import cache
 import requests
 
-def headers(user_agent, cookie = None, referer = None):
+def headers(user_agent, cookie, referer):
     if user_agent == None:
         raise ValueError('User agent may not be None.')
     h = {
@@ -51,16 +51,17 @@ week = datetime.date.today().strftime('%Y-%W')
 def _home(timestamp):
     'Monday/14:50:48, for example'
     user_agent = get_user_agent()
-    return requests.get(urls['home'], headers = headers(user_agent), allow_redirects = False)
+    _headers = headers(user_agent, None, None)
+    return requests.get(urls['home'], headers = _headers, allow_redirects = False)
 
 @cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'search'))
 def _search(firm_file_number, user_agent = None, cookie = None):
-    h = headers(user_agent, cookie = cookie, referer = referers['search'])
+    h = headers(user_agent, cookie, referers['search'])
     return requests.post(urls['search'], headers = h, data = data['search'] % firm_file_number, allow_redirects = False)
 
 @cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'result'))
 def _result(firm_file_number, user_agent = None, cookie = None):
-    h = headers(user_agent, cookie = cookie, referer = referers['result'])
+    h = headers(user_agent, cookie, referers['result'])
     return requests.post(urls['result'], headers = h, data = data['result'] % firm_file_number, allow_redirects = False)
 
 def sleep():
