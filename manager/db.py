@@ -1,3 +1,4 @@
+import json
 import os
 import datetime
 from collections import Counter
@@ -11,10 +12,13 @@ class Dadabase:
     def __init__(self, dburl, requestdir, highest_file_number = 8e6):
         self.highest_file_number = int(highest_file_number)
         self.disk = dataset.connect(dburl)
+        self.requestdir = requestdir
+
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
         self.disk.query('CREATE TABLE IF NOT EXISTS file_numbers ( file_number INTEGER );')
         self.disk.query('CREATE TABLE IF NOT EXISTS requests ( datetime DATETIME, ip_address TEXT );')
+
         self._init_cache()
 
     def _init_cache(self):
@@ -59,5 +63,5 @@ class Dadabase:
             'url': request.url,
             'data': request.data,
         }
-        with open(os.path.join(self.requestdir, filename, 'a')) as fp:
+        with open(os.path.join(self.requestdir, filename), 'a') as fp:
             fp.write(json.dumps(data) + '\n')
