@@ -2,7 +2,11 @@ from functools import partial
 import os
 from distutils.core import setup
 
-requirements = []
+requirements = [
+    'randua>=0.0.1',
+    'requests>=2.3.0',
+    'picklecache>=0.0.4'
+]
 extras = {
     'manager': ['dataset>=0.5.2', 'bottle>=0.12.7'],
     'reader': [],
