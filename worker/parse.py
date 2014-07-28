@@ -67,3 +67,4 @@ def is_session_valid(response):
     > Thank you.
 
     '''
+    return 'Illegal Attempt' not in response.text
