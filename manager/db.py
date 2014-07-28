@@ -14,9 +14,6 @@ class Dadabase:
         self.disk = dataset.connect(dburl)
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
-        for table in ['file_numbers', 'requests']:
-            if table not in self.disk.tables:
-                self.disk.create_table(table)
         self._init_cache()
 
     def _init_cache(self):
