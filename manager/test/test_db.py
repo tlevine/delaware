@@ -54,7 +54,7 @@ class TestDadabase(TestCase):
             self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
         n.assert_false(self.db.under_limit(ip_address, now = now))
 
-        n.assert_true(self.db.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))
+        n.assert_true(self.db.under_limit(ip_address, now = now + (1.2 * TIMESPAN)))
 
     def test_increment_file_number(self):
         file_number = 342
