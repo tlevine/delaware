@@ -5,7 +5,7 @@ import datetime
 
 import dataset
 
-TIMESPAN = 10
+TIMESPAN = datetime.timedelta(days = 1)
 LIMIT = 100
 
 class Dadabase:
@@ -13,6 +13,10 @@ class Dadabase:
         self.disk = dataset.connect(dburl)
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
+        self._init_cache()
+
+    def _init_cache():
+        '(Re)initialize the cache.'
         self.file_numbers = {file_number:0 for file_number in range(1, 8 * 10**6)}
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
         for row in self.disk.query(sql):
@@ -30,9 +34,11 @@ class Dadabase:
         else:
             return self.random_file_number()
 
-    def under_limit(self, ip_address):
+    def under_limit(self, ip_address, now = None):
         'Return True if we are under the limit and it is safe to query the website.'
-        params = [datetime.date.today() - TIMESPAN, ip_address]
+        if now = None:
+            now = datetime.date.today()
+        params = [now - TIMESPAN, ip_address]
         result = db.query('SELECT count(*) FROM requests WHERE datetime > ? AND ip_address > ?', params)
         return next(result['count(*)']) < LIMIT
 
