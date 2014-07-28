@@ -23,7 +23,7 @@ class Dadabase:
         '(Re)initialize the cache.'
 
         # This takes a long time, unsurprisingly
-        self.file_numbers = {file_number:0 for file_number in range(1, 8 * self.highest_file_number)}
+        self.file_numbers = {file_number:0 for file_number in range(1, self.highest_file_number)}
 
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
         for row in self.disk.query(sql):
