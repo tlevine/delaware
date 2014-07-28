@@ -40,7 +40,7 @@ def did_it_work_search(firm_file_number, response):
     the search bar and the result list. If it didn't,
     the file number shows up only in the search bar.
     '''
-    return response.text.count('%07d' % firm_file_number) == 2
+    return response.text.count('%07d' % firm_file_number) == 3
 
 def did_it_work_result(firm_file_number, response):
     '''
