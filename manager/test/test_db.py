@@ -12,7 +12,7 @@ class TestDadabase(TestCase):
         if os.path.exists(TMP):
             rmtree(TMP)
         os.mkdir(TMP)
-        self.dburl = 'sqlite:///' + os.path.join(TPM, 'test-dadabase.db')
+        self.dburl = 'sqlite:///' + os.path.join(TMP, 'test-dadabase.db')
         self.db = Dadabase(self.dburl, TMP)
 
     def tearDown(self):

@@ -20,7 +20,10 @@ class Dadabase:
 
     def _init_cache(self):
         '(Re)initialize the cache.'
+
+        # This takes a long time, unsurprisingly
         self.file_numbers = {file_number:0 for file_number in range(1, 8 * 10**6)}
+
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
         for row in self.disk.query(sql):
             self.file_numbers[row['file_number']] = row['count(*)']
