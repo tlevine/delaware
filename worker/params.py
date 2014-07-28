@@ -43,9 +43,9 @@ def read_config_params(filename):
     c = ConfigParser()
     c.read(filename)
 
-    manager_address = c.get(SECTION, 'manager_address', fallback = None)
-    username = c.get(SECTION, 'username', fallback = None)
-    installation = c.get(SECTION, 'installation', fallback = None)
+    manager_address = c.get(SECTION, 'manager_address')
+    username = c.get(SECTION, 'username')
+    installation = c.get(SECTION, 'installation')
 
     if manager_address != None and username != None and installation != None:
         return manager_address, username, installation
