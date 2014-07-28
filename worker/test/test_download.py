@@ -1,6 +1,6 @@
 import nose.tools as n
 
-import worker.download as d
+from worker.download import headers
 
 def test_headers():
     expected = {

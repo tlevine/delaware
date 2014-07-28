@@ -52,17 +52,20 @@ def _home(timestamp):
     'Monday/14:50:48, for example'
     user_agent = get_user_agent()
     _headers = headers(user_agent, None, None)
-    return requests.get(urls['home'], headers = _headers, allow_redirects = False)
+    return requests.get(urls['home'], headers = _headers,
+        allow_redirects = False)
 
 @cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'search'))
 def _search(firm_file_number, user_agent = None, cookie = None):
     h = headers(user_agent, cookie, referers['search'])
-    return requests.post(urls['search'], headers = h, data = data['search'] % firm_file_number, allow_redirects = False)
+    return requests.post(urls['search'], headers = h,
+        data = data['search'] % firm_file_number, allow_redirects = False)
 
 @cache(os.path.join(os.path.expanduser('~'), '.delaware', week, 'result'))
 def _result(firm_file_number, user_agent = None, cookie = None):
     h = headers(user_agent, cookie, referers['result'])
-    return requests.post(urls['result'], headers = h, data = data['result'] % firm_file_number, allow_redirects = False)
+    return requests.post(urls['result'], headers = h,
+        data = data['result'] % firm_file_number, allow_redirects = False)
 
 def sleep():
     seconds = sum(random.randint(0,1) for _ in range(100)) / 10
