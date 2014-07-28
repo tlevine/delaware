@@ -9,7 +9,8 @@ TIMESPAN = datetime.timedelta(days = 1)
 LIMIT = 100
 
 class Dadabase:
-    def __init__(self, dburl, requestdir):
+    def __init__(self, dburl, requestdir, highest_file_number = 8e6):
+        self.highest_file_number = highest_file_number
         self.disk = dataset.connect(dburl)
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
@@ -22,7 +23,7 @@ class Dadabase:
         '(Re)initialize the cache.'
 
         # This takes a long time, unsurprisingly
-        self.file_numbers = {file_number:0 for file_number in range(1, 8 * 10**6)}
+        self.file_numbers = {file_number:0 for file_number in range(1, 8 * self.highest_file_number)}
 
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
         for row in self.disk.query(sql):

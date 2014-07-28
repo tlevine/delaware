@@ -13,7 +13,7 @@ class TestDadabase(TestCase):
             rmtree(TMP)
         os.mkdir(TMP)
         self.dburl = 'sqlite:///' + os.path.join(TMP, 'test-dadabase.db')
-        self.db = Dadabase(self.dburl, TMP)
+        self.db = Dadabase(self.dburl, TMP, highest_file_number = 1e3)
 
     def tearDown(self):
         rmtree(TMP)
