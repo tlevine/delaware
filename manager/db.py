@@ -57,8 +57,10 @@ class Dadabase:
         self.file_numbers[file_number] += 1
 
     def save_request(self, request, filename = datetime.date.today().isoformat(), now = None):
+        if now == None:
+            now = datetime.datetime.now()
         data = {
-            'date': datetime.datetime.today().ctime() if now == None else now,
+            'date': now.isoformat(),
             'ip_address': request.remote_addr,
             'method': request.method,
             'url': request.url,
@@ -66,3 +68,4 @@ class Dadabase:
         }
         with open(os.path.join(self.requestdir, filename), 'a') as fp:
             fp.write(json.dumps(data) + '\n')
+        self.disk['requests'].insert({'datetime': now, 'ip_address': data['ip_address']})

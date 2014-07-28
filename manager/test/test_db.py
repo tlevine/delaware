@@ -76,7 +76,7 @@ class TestDadabase(TestCase):
         sql = 'SELECT count(*) FROM requests WHERE ip_address = "%s"'
         FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'data'])
         fakerequest = FakeRequest(ip_address, 'post', '/directions', {'foo': 'bar'})
-        now = datetime.datetime(2014,4,3).ctime()
+        now = datetime.datetime(2014,4,3)
 
         # Record db before.
         before = next(self.db.disk.query(sql % ip_address))['count(*)']
@@ -89,7 +89,7 @@ class TestDadabase(TestCase):
         one_log_line = json.load(open(tmp.name,'r'))
         expected = {
             'data': {'foo': 'bar'},
-            'date': 'Thu Apr  3 00:00:00 2014',
+            'date': '2014-04-03T00:00:00',
             'ip_address': '12.82.2.9',
             'method': 'post',
             'url': '/directions'
