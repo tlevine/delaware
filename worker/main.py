@@ -4,7 +4,7 @@ import worker.local as local
 import worker.download as dl
 import worker.remote as remote
 import worker.parse as parse
-from worker.params import params, argparser
+from worker.params import params
 
 def work(local = False):
     if local:
@@ -12,7 +12,7 @@ def work(local = False):
         directions = local.directions
     else:
         manager_address, username, installation = params()
-        respond = partial(remote.respond, parse.to_json, manager_address, username, installation)
+        respond = partial(remote.respond, parse.to_dict, manager_address, username, installation)
         directions = partial(remote.directions, manager_address, username, installation)
     sleep = dl.sleep
     home_response = None
