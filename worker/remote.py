@@ -19,7 +19,7 @@ def respond(to_json, manager_address, username, installation, before_address, fi
         'response': to_json(response)
     }
     r = requests.post(manager_address + '/response', data = data)
-    return r.json['ip_address']
+    return r.json()['ip_address']
 
 def directions(manager_address, username, installation):
     data = {
@@ -28,5 +28,5 @@ def directions(manager_address, username, installation):
     }
     r = requests.post(manager_address + '/directions', data = data)
     if r.ok:
-        data = json.loads(r.text)
+        data = r.json()
         return data['file_number'], data['ip_address']
