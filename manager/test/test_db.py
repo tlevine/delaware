@@ -1,18 +1,19 @@
 from shutil import rmtree
+import os
 from unittest import TestCase
-from tempfile import tempdir, NamedTemporaryFile
+from tempfile import NamedTemporaryFile
 
-from db import Dadabase, TIMESPAN, LIMIT
+from manager.db import Dadabase, TIMESPAN, LIMIT
 
-TMP = os.path.join(tempdir, 'test-dadabase')
+TMP = os.path.join('/tmp', 'test-dadabase')
 
 class TestDadabase(TestCase):
     def setUp(self):
         if os.path.exists(TMP):
             rmtree(TMP)
-        os.makedir(TMP)
-        self.dburl = 'sqlite://:memory:'
-        self.db = Dadabase(self, self.dburl, TMP)
+        os.mkdir(TMP)
+        self.dburl = 'sqlite:////tmp/test-dadabase.db'
+        self.db = Dadabase(self.dburl, TMP)
 
     def tearDown(self):
         rmtree(TMP)
@@ -41,11 +42,11 @@ class TestDadabase(TestCase):
         now = datetime.datetime(2014, 6, 24)
 
         for _ in range(LIMIT - 2):
-            self.db['requests'].insert({'datetime': now, 'ip_address': ip_address}
+            self.db['requests'].insert({'datetime': now, 'ip_address': ip_address})
         n.assert_true(self.under_limit(ip_address, now = now))
 
         for _ in range(4):
-            self.db['requests'].insert({'datetime': now, 'ip_address': ip_address}
+            self.db['requests'].insert({'datetime': now, 'ip_address': ip_address})
         n.assert_false(self.under_limit(ip_address, now = now))
 
         n.assert_true(self.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))

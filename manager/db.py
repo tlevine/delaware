@@ -13,9 +13,12 @@ class Dadabase:
         self.disk = dataset.connect(dburl)
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
+        for table in ['file_numbers', 'requests']:
+            if table not in self.disk.tables:
+                self.disk.create_table(table)
         self._init_cache()
 
-    def _init_cache():
+    def _init_cache(self):
         '(Re)initialize the cache.'
         self.file_numbers = {file_number:0 for file_number in range(1, 8 * 10**6)}
         sql = 'SELECT file_number, count(*) FROM file_numbers GROUP BY file_number'
@@ -36,7 +39,7 @@ class Dadabase:
 
     def under_limit(self, ip_address, now = None):
         'Return True if we are under the limit and it is safe to query the website.'
-        if now = None:
+        if now == None:
             now = datetime.date.today()
         params = [now - TIMESPAN, ip_address]
         result = db.query('SELECT count(*) FROM requests WHERE datetime > ? AND ip_address = ?', params)
@@ -49,10 +52,10 @@ class Dadabase:
     def save_request(self, request, filename = datetime.date.today().isoformat(), now = None):
         data = {
             'date': datetime.datetime.today().ctime() if now == None else now,
-            'ip_address', request.remote_addr,
+            'ip_address': request.remote_addr,
             'method': request.method,
             'url': request.url,
             'data': request.data,
         }
-        with open(os.path.join(self.requestdir, filename, 'a') as fp:
+        with open(os.path.join(self.requestdir, filename, 'a')) as fp:
             fp.write(json.dumps(data) + '\n')
