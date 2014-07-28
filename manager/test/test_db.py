@@ -4,6 +4,8 @@ import os
 from unittest import TestCase
 from tempfile import NamedTemporaryFile
 
+import nose.tools as n
+
 from manager.db import Dadabase, TIMESPAN, LIMIT
 
 TMP = os.path.join('/tmp', 'test-dadabase')
@@ -26,7 +28,7 @@ class TestDadabase(TestCase):
         self.db.disk['file_numbers'].insert({'file_number':442})
         self.db.disk['file_numbers'].insert({'file_number':8})
         self.db._init_cache()
-        n.assert_set_equal(set(self.db.file_numbers.values()), {2,1,0})
+        n.assert_set_equal(set(self.db.file_numbers.values()), {3,1,0})
 
     def test_file_number(self):
         'The file number should be among those with the lowest counts.'
@@ -43,11 +45,11 @@ class TestDadabase(TestCase):
         now = datetime.datetime(2014, 6, 24)
 
         for _ in range(LIMIT - 2):
-            self.db['requests'].insert({'datetime': now, 'ip_address': ip_address})
+            self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
         n.assert_true(self.under_limit(ip_address, now = now))
 
         for _ in range(4):
-            self.db['requests'].insert({'datetime': now, 'ip_address': ip_address})
+            self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
         n.assert_false(self.under_limit(ip_address, now = now))
 
         n.assert_true(self.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))
