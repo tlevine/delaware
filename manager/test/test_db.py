@@ -3,6 +3,7 @@ import datetime
 import os
 from unittest import TestCase
 from tempfile import NamedTemporaryFile
+from collections import namedtuple
 
 import nose.tools as n
 
