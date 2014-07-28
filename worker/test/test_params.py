@@ -1,4 +1,5 @@
 import os
+import filecmp
 import tempfile
 from shutil import copyfile
 
@@ -25,3 +26,4 @@ def test_write_config_params():
     copyfile(CONFIG, tmp.name)
     p.write_config_params('https://delaware.dada.pink', 'tlevine',
                           '065db5d3-924c-4129-9c93-2360538a4ce5', tmp.name)
+    n.assert_true(filecmp.cmp(tmp.name, CONFIG))
