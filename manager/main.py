@@ -18,10 +18,10 @@ def rate_limit(f):
 def directions():
     db.save_request(request)
     ip_address = request.remote_route
-    return json.dumps({
+    return {
         'ip_address': ip_address,
         'file_number': db.file_number(),
-    })
+    }
 
 @b.post('/response')
 @rate_limit
