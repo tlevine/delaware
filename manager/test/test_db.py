@@ -47,13 +47,13 @@ class TestDadabase(TestCase):
 
         for _ in range(LIMIT - 2):
             self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
-        n.assert_true(self.under_limit(ip_address, now = now))
+        n.assert_true(self.db.under_limit(ip_address, now = now))
 
         for _ in range(4):
             self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
-        n.assert_false(self.under_limit(ip_address, now = now))
+        n.assert_false(self.db.under_limit(ip_address, now = now))
 
-        n.assert_true(self.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))
+        n.assert_true(self.db.under_limit(ip_address, now = now - (1.2 * TIMESPAN)))
 
     def test_increment_file_number(self):
         file_number = 82342
