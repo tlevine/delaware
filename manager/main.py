@@ -1,6 +1,6 @@
 from bottle import Bottle, run, request, response
 
-from db import Dadabase
+from manager.db import Dadabase
 
 db = Dadabase('sqlite:////home/tlevine/foo.db', '/home/tlevine/foo')
 b = Bottle()
@@ -31,3 +31,5 @@ def response():
     return {
         'ip_address': ip_address,
     }
+
+app = b
