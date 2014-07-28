@@ -1,3 +1,4 @@
+import json
 import os
 import pickle
 from functools import partial
@@ -25,12 +26,13 @@ def check_is_session_valid(filename, expectation):
 check_did_it_work_search = partial(check, p.did_it_work_search)
 check_did_it_work_result = partial(check, p.did_it_work_result)
 
-def check_to_json(filename):
+def check_to_dict(filename):
     with open(os.path.join(FIXTURES, filename), 'rb') as fp:
         error, response = pickle.load(fp)
     with open(os.path.join(FIXTURES, filename + '.json'), 'r') as fp:
-        expectation = json.load(fp)
-    n.assert_dict_equal(p.to_json(response), expectation)
+        # json.dump(p.to_dict(response), fp, indent = 2, separators=(',', ': '))
+        expected = json.load(fp)
+    n.assert_dict_equal(p.to_dict(response), expected)
 
 TESTCASES = [
     (check_is_session_valid, 'home-working', True),
@@ -42,9 +44,9 @@ TESTCASES = [
     (check_did_it_work_result, 5381673, 'result-success', True),
     (check_did_it_work_search, 4120102, 'search-match-found-dada', True),
     (check_did_it_work_search, 4631093, 'search-match-found-toilet', True),
-    (check_to_json, 'home-working'),
-    (check_to_json, 'result-ed100'),
-    (check_to_json, 'result-success'),
-    (check_to_json, 'search-match-found-dada'),
-    (check_to_json, 'search-match-found-toilet'),
+    (check_to_dict, 'home-working'),
+    (check_to_dict, 'result-ed100'),
+    (check_to_dict, 'result-success'),
+    (check_to_dict, 'search-match-found-dada'),
+    (check_to_dict, 'search-match-found-toilet'),
 ]
