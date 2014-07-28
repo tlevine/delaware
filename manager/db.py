@@ -10,7 +10,7 @@ LIMIT = 100
 
 class Dadabase:
     def __init__(self, dburl, requestdir, highest_file_number = 8e6):
-        self.highest_file_number = highest_file_number
+        self.highest_file_number = int(highest_file_number)
         self.disk = dataset.connect(dburl)
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
