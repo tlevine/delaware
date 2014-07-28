@@ -87,7 +87,14 @@ class TestDadabase(TestCase):
 
         tmp.seek(0)
         one_log_line = json.load(open(tmp.name,'r'))
-        n.assert_dict_equal(one_log_line, {})
+        expected = {
+            'data': {'foo': 'bar'},
+            'date': 'Thu Apr  3 00:00:00 2014',
+            'ip_address': '12.82.2.9',
+            'method': 'post',
+            'url': '/directions'
+        }
+        n.assert_dict_equal(one_log_line, expected)
 
         # Record db after.
         after  = next(self.db.disk.query(sql % ip_address))['count(*)']
