@@ -12,12 +12,12 @@ def test():
     for testcase in TESTCASES:
         yield testcase
 
-def check(function, firm_file_number, filename, expectatation)
+def check(function, firm_file_number, filename, expectation):
     with open(os.path.join(FIXTURES, filename), 'rb') as fp:
         error, response = pickle.load(fp)
     n.assert_equal(function(firm_file_number, response), expectation)
 
-def check_is_session_valid(filename, expectatation)
+def check_is_session_valid(filename, expectation):
     with open(os.path.join(FIXTURES, filename), 'rb') as fp:
         error, response = pickle.load(fp)
     n.assert_equal(p.is_session_valid(response), expectation)
