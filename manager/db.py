@@ -1,7 +1,6 @@
 import os
 import datetime
 from collections import Counter
-import datetime
 
 import dataset
 
@@ -14,6 +13,8 @@ class Dadabase:
         self.disk = dataset.connect(dburl)
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
+        self.disk.query('CREATE TABLE IF NOT EXISTS file_numbers ( file_number INTEGER );')
+        self.disk.query('CREATE TABLE IF NOT EXISTS requests ( datetime DATETIME, ip_address TEXT );')
         self._init_cache()
 
     def _init_cache(self):
