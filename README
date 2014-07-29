@@ -214,3 +214,7 @@ To do
 In order to avoid faking of data, enforce that the worker only complete
 work that it has been ordered to. This could happen through some form of
 encryption or just by looking for strange patterns in the server logs.
+
+The rate-limit query on the database isn't working. Fix it.
+
+Figure out what the actual rate limit is.
