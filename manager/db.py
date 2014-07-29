@@ -59,12 +59,13 @@ class Dadabase:
     def save_request(self, request, filename = datetime.date.today().isoformat(), now = None):
         if now == None:
             now = datetime.datetime.now()
+        body = request.body.read().decode('utf-8')
         data = {
             'date': now.isoformat(),
             'ip_address': request.remote_addr,
             'method': request.method,
             'url': request.url,
-            'data': request.json,
+            'body': body,
         }
         with open(os.path.join(self.requestdir, filename), 'a') as fp:
             fp.write(json.dumps(data) + '\n')
