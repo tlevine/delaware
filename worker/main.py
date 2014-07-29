@@ -8,8 +8,6 @@ import worker.remote as remote
 import worker.parse as parse
 from worker.params import params
 
-shared.log.output('deleworker')
-
 def work(local = False):
     if local:
         respond = local.respond
@@ -20,6 +18,9 @@ def work(local = False):
         directions = partial(remote.directions, ca_bundle_file, manager_address, username, installation)
     sleep = dl.sleep
     home_response = None
+
+    shared.log.output('deleworker',
+        filename = os.path.join(os.path.expanduser('~'), '.delaware', 'worker.log'))
     while True:
         firm_file_number, before_address = get_work(directions, sleep)
         home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))

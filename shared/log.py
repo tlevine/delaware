@@ -1,9 +1,16 @@
 import logging
 
-def output(name, level = logging.DEBUG):
+def output(name, level = logging.DEBUG, filename = None):
     logger = logging.getLogger(name)
-    fp_stream = logging.StreamHandler()
-    fp_stream.setLevel(level)
     logger.setLevel(level)
-    logger.addHandler(fp_stream)
+
+    stream = logging.StreamHandler()
+    stream.setLevel(level)
+    logger.addHandler(stream)
+
+    if filename != None:
+        logfile = logging.FileHandler(filename, 'a')
+        logfile.setLevel(level)
+        logger.addHandler(logfile)
+
     return logger
