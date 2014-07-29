@@ -51,8 +51,8 @@ def read_config_params(filename):
     username = c.get(SECTION, 'username')
     installation = c.get(SECTION, 'installation')
 
-    if manager_address != None and username != None and installation != None:
-        return manager_address, username, installation
+    if ca_bundle_file != None and manager_address != None and username != None and installation != None:
+        return ca_bundle_file, manager_address, username, installation
 
 def write_config_params(ca_bundle_file, manager_address, username, installation, filename):
     c = ConfigParser()
