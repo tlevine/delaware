@@ -2,6 +2,7 @@
 import sys
 from manager.main import app
 try:
-    app.run()
+    app.run(server = 'cherrypy')
 except ImportError as e:
     sys.stderr.write('Dependencies are missing; run "pip install delaware[manager]".\n')
+    raise
