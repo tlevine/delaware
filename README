@@ -1,7 +1,61 @@
-I wrote this thing because Delaware blocks computers from accessing the
-site if they have made too many requests in a short time. In order to
-download all of the data, we are thus using a swarm of computers from
-different IP addresses, each making very few requests to the site.
+Get Deleware company registration data!
++++++++++++++++++++++++++++++++++++++++++++++
+
+Some people think it would be good for data about company registrations to
+be freely distributed and free of charge. The State of Delaware apparently
+doesn't think so; Delaware blocks computers from accessing the
+`General Information Name Search <https://delecorp.delaware.gov/tin/GINameSearch.jsp>`_
+site if they make more than a few hundred (I'm not sure of the exact number.)
+requests in a short time.
+
+In order to download all of the data, we are thus using a swarm of computers
+from different IP addresses, each making very few requests to the site.
+**You can help!**
+
+You just need to install a program and let it keep running. It will
+periodically contact a central server for directions, and it will query
+Delaware's General Information Name Search accordingly. It is very careful
+to avoid being blocked. But if it detects that you are on a new IP address
+it will take advantage of that.
+
+Installing
+==================
+The installation process involves running things in a terminal. Remind
+me to put some directions here about how to do that in Mac and Windows.
+
+If you already have Python and Pip installed, you can just do this. ::
+
+    sudo pip install delaware
+
+If you have Python but not Pip, you can download a standalone package
+(I have to make this.) and run the setup like so. ::
+
+    tar xzf delaware.tar.gz
+    cd delaware
+    sudo python setup.py
+
+If you don't have Python installed, follow
+`these directions <https://www.python.org/download/>`_.
+
+If you are on any operating system other than Windows, you probably
+already have Python installed.
+
+Add a note about Enthought, Continuum, &c.
+
+Running
+=======================
+Once you've installed the program, type this into a terminal. ::
+
+    deleworker
+
+It'll ask you a few questions the first time you run it, but you can totally
+ignore it after that.
+
+If errors come up
+========================
+If the program stops running, please send the error message to _@thomaslevine.com.
+Also, please save the ``~/.delaware`` directory, as it contains files that can be
+helpful for figuring out what went wrong.
 
 How it works
 ===============
