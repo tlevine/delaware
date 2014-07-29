@@ -55,17 +55,17 @@ def do_work(home_response, firm_file_number, respond, dl = dl):
     if home_response == None:
         home_response = dl.home()
         respond(home_response, False)
-        sleep()
+        dl.sleep()
 
     search_response = dl.search(home_response, firm_file_number)
     respond(search_response, parse.did_it_work_search(firm_file_number, search_response))
-    sleep()
+    dl.sleep()
     if not parse.is_session_valid(search_response):
         return None
 
     result_response = dl.result(search_response, firm_file_number)
     respond(result_response, parse.did_it_work_result(firm_file_number, result_response))
-    sleep()
+    dl.sleep()
     if not parse.is_session_valid(result_response):
         return None
 
