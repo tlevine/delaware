@@ -44,11 +44,17 @@ you as long as you keep the program running.
 
 Your computer will collect data and send it to Tom, and Tom is going to
 redistribute the data under XXX license; is that okay? If so, type "yes";
-if not, hit ctrl+C to exit the program.'''
-    wrong_answer = 'You must type "yes" to agree and continue;\n' \
-                   'if you do not agree, hit ctrl+c to exit.'
-    while input(question) != 'yes':
-        print(wrong_answer)
+if not, hit ctrl+C to exit the program.
+
+'''
+    wrong_answer = '''
+You need to type "yes" to run the software. If you are not okay with how
+Tom would redistribute the data, hit ctrl+c.
+
+'''
+    if input(question) != 'yes':
+        while input(wrong_answer) != 'yes':
+            pass
 
     default_username = 'Anonymous'
     username = input('Username [%s]: ' % default_username)
