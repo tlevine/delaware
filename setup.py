@@ -29,7 +29,7 @@ setup(
     tests_require = ['nose'],
 
     packages = ['shared', 'manager','worker','reader'][:3],
-    package_data = {
+    package_dir = {
         'worker': os.path.join('worker', 'certificates')
     },
     package_data = {
