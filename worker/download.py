@@ -2,10 +2,13 @@ import os
 import datetime
 import random
 import time
+from logging import getLogger
 
 from randua import generate as get_user_agent
 from picklecache import cache
 import requests
+
+logger = getLogger('deleworker')
 
 def headers(user_agent, cookie, referer):
     if user_agent == None:
@@ -77,16 +80,22 @@ def sleep():
 def home():
     'Go to the home page. Cache it for records, but don\'t load from cache.'
     d = datetime.datetime.now()
-    return _home(d.strftime('%A/%H:%M:%S'))
+    response = _home(d.strftime('%A/%H:%M:%S'))
+    logger.debug('Downloaded %s' % response.url)
+    return response
 
 def search(home_response, firm_file_number):
     'Search for a firm, loading from the cache if possible'
     user_agent = home_response.request.headers['User-Agent']
     cookie = home_response.headers['Set-Cookie'].split('; ')[0]
-    return _search(firm_file_number, user_agent = user_agent, cookie = cookie)
+    response = _search(firm_file_number, user_agent = user_agent, cookie = cookie)
+    logger.debug('Downloaded %s for file number %07d' % (response.url, firm_file_number))
+    return response
 
 def result(search_response, firm_file_number):
     'Look at detailed information about a firm, loading from the cache if possible'
     user_agent = search_response.request.headers['User-Agent']
     cookie = search_response.request.headers['Cookie']
-    return _result(firm_file_number, user_agent = user_agent, cookie = cookie)
+    response = _result(firm_file_number, user_agent = user_agent, cookie = cookie)
+    logger.debug('Downloaded %s for file number %07d' % (response.url, firm_file_number))
+    return response
