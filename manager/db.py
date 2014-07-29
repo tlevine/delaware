@@ -72,7 +72,7 @@ class Dadabase:
                 os.makedirs(os.path.join(self.requestdir, dirname))
             except FileExistsError:
                 pass
-            path = os.path.join(self.requestdir, dirname, filename))
+            path = os.path.join(self.requestdir, dirname, filename)
         else:
             path = filename
 
