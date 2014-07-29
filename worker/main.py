@@ -12,8 +12,8 @@ def work(local = False):
         directions = local.directions
     else:
         manager_address, username, installation = params()
-        respond = partial(remote.respond, parse.to_dict, manager_address, username, installation)
-        directions = partial(remote.directions, manager_address, username, installation)
+        respond = partial(remote.respond, ca_bundle_file, parse.to_dict, manager_address, username, installation)
+        directions = partial(remote.directions, ca_bundle_file, manager_address, username, installation)
     sleep = dl.sleep
     home_response = None
     while True:
