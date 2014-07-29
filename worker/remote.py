@@ -1,3 +1,4 @@
+import json
 from hashlib import sha1
 from logging import getLogger
 
@@ -23,7 +24,7 @@ def respond(verify, to_dict, manager_address, username, installation, before_add
         'finished': finished,
         'response': to_dict(response)
     }
-    r = post(manager_address + '/response', data = data)
+    r = post(verify, manager_address + '/response', data = data)
     logger.info('Uploaded a %07d response' % file_number)
     return r.json()['ip_address']
 
@@ -34,7 +35,7 @@ def directions(verify, manager_address, username, installation):
         'username': username,
         'salted_installation': salt(username, installation),
     }
-    r = post(manager_address + '/directions', data)
+    r = post(verify, manager_address + '/directions', data)
     if r.ok:
         data = r.json()
         logger.info('Received directions to query %07d' % data['file_number'])
@@ -43,5 +44,5 @@ def directions(verify, manager_address, username, installation):
 HEADERS = {
     'content-type': 'application/json',
 }
-def post(url, data):
+def post(verify, url, data):
     return requests.post(url, data = json.dumps(data), verify = verify, headers = HEADERS)
