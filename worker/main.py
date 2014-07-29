@@ -7,15 +7,12 @@ import worker.remote as remote
 import worker.parse as parse
 from worker.params import params
 
-ca_bundle_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    'certificates', 'delaware.dada.pink.crt')
-
 def work(local = False):
     if local:
         respond = local.respond
         directions = local.directions
     else:
-        manager_address, username, installation = params()
+        ca_bundle_file, manager_address, username, installation = params()
         respond = partial(remote.respond, ca_bundle_file, parse.to_dict, manager_address, username, installation)
         directions = partial(remote.directions, ca_bundle_file, manager_address, username, installation)
     sleep = dl.sleep

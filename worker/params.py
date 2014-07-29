@@ -16,37 +16,37 @@ CONFIG = os.path.join(DIRECTORY, 'config')
 def params():
     from_config = read_config_params(CONFIG)
     if from_config == None:
-        manager_address, username = prompt_params()
+        manager_address = 'https://delaware.dada.pink'
+        username = prompt_params()
         installation = installation_id()
         if not os.path.exists(DIRECTORY):
             os.makedirs(DIRECTORY)
-        write_config_params(manager_address, username, installation, CONFIG)
+        ca_bundle_file = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'certificates', 'delaware.dada.pink.crt')
+        write_config_params(ca_bundle_file, manager_address, username, installation, CONFIG)
     else:
-        manager_address, username, installation = from_config
+        ca_bundle_file, manager_address, username, installation = from_config
 
-    return manager_address, username, installation
+    return ca_bundle_file, manager_address, username, installation
 
 def installation_id():
     return str(uuid.uuid4())
 
 def prompt_params():
-    default_manager_address = 'https://delaware.dada.pink'
-    manager_address = input('Manager [%s]: ' % default_manager_address)
-    if manager_address == '':
-        manager_address = default_manager_address
-
-    default_username = getuser()
+    default_username = 'Anonymous'
     username = input('Username [%s]: ' % default_username)
     if username == '':
         username = default_username
 
-    return manager_address, username
+    return username
 
 def read_config_params(filename):
     c = ConfigParser()
     if c.read(filename) == []:
         return
 
+    ca_bundle_file = c.get(SECTION, 'ca_bundle_file')
     manager_address = c.get(SECTION, 'manager_address')
     username = c.get(SECTION, 'username')
     installation = c.get(SECTION, 'installation')
@@ -54,9 +54,10 @@ def read_config_params(filename):
     if manager_address != None and username != None and installation != None:
         return manager_address, username, installation
 
-def write_config_params(manager_address, username, installation, filename):
+def write_config_params(ca_bundle_file, manager_address, username, installation, filename):
     c = ConfigParser()
     c.add_section(SECTION)
+    c.set(SECTION, 'ca_bundle_file', value = ca_bundle_file)
     c.set(SECTION, 'manager_address', value = manager_address)
     c.set(SECTION, 'username', value = username)
     c.set(SECTION, 'installation', value = installation)
