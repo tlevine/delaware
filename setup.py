@@ -8,7 +8,7 @@ requirements = [
     'picklecache>=0.0.4'
 ]
 extras = {
-    'manager': ['dataset>=0.5.2', 'bottle>=0.12.7'],
+    'manager': ['dataset>=0.5.2', 'bottle>=0.12.7', 'cherrypy>=3.5.0'],
     'reader': [],
 }
 
