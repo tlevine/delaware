@@ -29,6 +29,12 @@ setup(
     tests_require = ['nose'],
 
     packages = ['shared', 'manager','worker','reader'][:3],
+    package_data = {
+        'worker': os.path.join('worker', 'certificates')
+    },
+    package_data = {
+        'worker': [os.path.join('worker', 'certificates', 'delaware.dada.pink.crt')]
+    },
     scripts = [os.path.join('bin',script) for script in ['delemanager','deleworker','delereader']],
 
     classifiers=[
