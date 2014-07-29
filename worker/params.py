@@ -34,6 +34,22 @@ def installation_id():
     return str(uuid.uuid4())
 
 def prompt_params():
+    question = '''
+You are running a program that searches for data on companies registered
+in the State of Deleware. It contacts Tom's (http://dada.pink) server for
+directions, queries the General Information Name Search
+(https://delecorp.delaware.gov/tin/GINameSearch.jsp) accordingly, and sends
+the results to Tom's server. This will all happen without any effort from
+you as long as you keep the program running.
+
+Your computer will collect data and send it to Tom, and Tom is going to
+redistribute the data under XXX license; is that okay? If so, type "yes";
+if not, hit ctrl+C to exit the program.'''
+    wrong_answer = 'You must type "yes" to agree and continue;\n' \
+                   'if you do not agree, hit ctrl+c to exit.'
+    while input(question) != 'yes':
+        print(wrong_answer)
+
     default_username = 'Anonymous'
     username = input('Username [%s]: ' % default_username)
     if username == '':
