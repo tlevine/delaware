@@ -22,14 +22,14 @@ setup(
     author_email = "_@thomaslevine.com",
     description = "Get company registration data for the State of Delaware.",
     license = "AGPL",
-    url = "http://thomaslevine.com"
+    url = "https://github.com/tlevine/delaware",
 
     install_requires = requirements,
     extras_require = extras,
     tests_require = ['nose'],
 
-    packages = ['manager','worker','reader'],
-    scripts = list(map(partial(os.path.join('bin', ['delemanager','deleworker','delereader'])))),
+    packages = ['shared', 'manager','worker','reader'][:3],
+    scripts = [os.path.join('bin',script) for script in ['delemanager','deleworker','delereader']],
 
     classifiers=[
         'Programming Language :: Python :: 2.7',
