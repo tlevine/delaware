@@ -82,7 +82,7 @@ def home():
     'Go to the home page. Cache it for records, but don\'t load from cache.'
     d = datetime.datetime.now()
     response = _home(d.strftime('%A/%H:%M:%S'))
-    logger.debug('Downloaded %s' % response.url)
+    logger.info('Downloaded %s' % response.url)
     return response
 
 def search(home_response, firm_file_number):
@@ -90,7 +90,7 @@ def search(home_response, firm_file_number):
     user_agent = home_response.request.headers['User-Agent']
     cookie = home_response.headers['Set-Cookie'].split('; ')[0]
     response = _search(firm_file_number, user_agent = user_agent, cookie = cookie)
-    logger.debug('Downloaded %s for file number %07d' % (response.url, firm_file_number))
+    logger.info('Downloaded %s for file number %07d' % (response.url, firm_file_number))
     return response
 
 def result(search_response, firm_file_number):
@@ -98,5 +98,5 @@ def result(search_response, firm_file_number):
     user_agent = search_response.request.headers['User-Agent']
     cookie = search_response.request.headers['Cookie']
     response = _result(firm_file_number, user_agent = user_agent, cookie = cookie)
-    logger.debug('Downloaded %s for file number %07d' % (response.url, firm_file_number))
+    logger.info('Downloaded %s for file number %07d' % (response.url, firm_file_number))
     return response

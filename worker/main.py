@@ -1,22 +1,14 @@
 import os
 from functools import partial
-import logging
 
+import shared.log
 import worker.local as local
 import worker.download as dl
 import worker.remote as remote
 import worker.parse as parse
 from worker.params import params
 
-def getlogger():
-    logger = logging.getLogger('deleworker')
-    fp_stream = logging.StreamHandler()
-   #fp_stream.setLevel(logging.ERROR)
-    fp_stream.setLevel(logging.DEBUG)
-    logger.setLevel(logging.DEBUG)
-    logger.addHandler(fp_stream)
-    return logger
-logger = getlogger()
+shared.log.output('deleworker')
 
 def work(local = False):
     if local:
