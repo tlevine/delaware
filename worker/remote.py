@@ -5,7 +5,7 @@ import requests
 def salt(manager_address, installation):
     return sha1(manager_address.encode('utf-8') + installation.encode('utf-8')).hexdigest()
 
-def respond(to_dict, verify, manager_address, username, installation, before_address, file_number, response, finished):
+def respond(verify, to_dict, manager_address, username, installation, before_address, file_number, response, finished):
     '''
     finished: whether we are finished with the particular file number
               (whether to mark it on the server as finished)
