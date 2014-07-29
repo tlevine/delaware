@@ -56,10 +56,26 @@ class Dadabase:
         self.disk['file_numbers'].insert({'file_number':file_number})
         self.file_numbers[file_number] += 1
 
-    def save_request(self, request, filename = datetime.date.today().isoformat(), now = None):
+    def save_request(self, request, filename = None, now = None):
+        body = json.loads(request.body.read().decode('utf-8'))
+
         if now == None:
             now = datetime.datetime.now()
-        body = request.body.read().decode('utf-8')
+
+        if re.match(r'^[0-9a-z]{40}$', request):
+            dirname = body['salted_installation']
+        else:
+            dirname = 'invalid-salted_installation'
+
+        if filename == None:
+            try:
+                os.makedirs(os.path.join(self.requestdir, dirname))
+            except FileExistsError:
+                pass
+            path = os.path.join(self.requestdir, dirname, filename))
+        else:
+            path = filename
+
         data = {
             'date': now.isoformat(),
             'ip_address': request.remote_addr,
@@ -67,6 +83,6 @@ class Dadabase:
             'url': request.url,
             'body': body,
         }
-        with open(os.path.join(self.requestdir, filename), 'a') as fp:
+        with open(path, 'a') as fp:
             fp.write(json.dumps(data) + '\n')
         self.disk['requests'].insert({'datetime': now, 'ip_address': data['ip_address']})
