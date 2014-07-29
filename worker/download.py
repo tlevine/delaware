@@ -73,9 +73,10 @@ def _result(firm_file_number, user_agent = None, cookie = None):
         data = data['result'] % firm_file_number, allow_redirects = False)
 
 def sleep():
-    seconds = sum(random.randint(0,1) for _ in range(100)) / 10
-    time.sleep(seconds)
-    return seconds
+    time.sleep(_sleep_seconds())
+
+def _sleep_seconds():
+    return sum(random.randint(0,1) for _ in range(100)) / 10
 
 def home():
     'Go to the home page. Cache it for records, but don\'t load from cache.'

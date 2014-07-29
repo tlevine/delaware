@@ -1,6 +1,6 @@
 import nose.tools as n
 
-from worker.download import headers
+from worker.download import headers, _sleep_seconds
 
 def test_headers():
     expected = {
@@ -29,3 +29,8 @@ def test_headers():
 
     with n.assert_raises(ValueError):
         headers('the user agent', 'the cookie', None)
+
+def test_sleep_seconds():
+    count = 1000
+    histogram = (_sleep_seconds() for _ in range(count))
+    n.assert_greater(sum(histogram) / count, 4.5)
