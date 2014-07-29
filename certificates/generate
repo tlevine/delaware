@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+# Did I do this properly?
+
+# Generate
+openssl genrsa -des3 -out delaware.dada.pink.key 4096
+
+# Request
+openssl req -new -key delaware.dada.pink.key -out delaware.dada.pink.csr
+
+# Remove passphrase
+cp delaware.dada.pink.key delaware.dada.pink.key.org
+openssl rsa -in delaware.dada.pink.key.org -out delaware.dada.pink.key
+
+# Sign
+openssl x509 -req -days 2000 -in delaware.dada.pink.csr -signkey delaware.dada.pink.key -out delaware.dada.pink.crt
