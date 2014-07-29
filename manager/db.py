@@ -1,3 +1,4 @@
+import re
 import json
 import os
 import random
@@ -62,7 +63,7 @@ class Dadabase:
         if now == None:
             now = datetime.datetime.now()
 
-        if re.match(r'^[0-9a-z]{40}$', request):
+        if re.match(r'^[0-9a-z]{40}$', body['salted_installation']):
             dirname = body['salted_installation']
         else:
             dirname = 'invalid-salted_installation'
@@ -72,7 +73,7 @@ class Dadabase:
                 os.makedirs(os.path.join(self.requestdir, dirname))
             except FileExistsError:
                 pass
-            path = os.path.join(self.requestdir, dirname, filename)
+            path = os.path.join(self.requestdir, dirname, now.isoformat())
         else:
             path = filename
 
