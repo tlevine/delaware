@@ -78,17 +78,25 @@ a ``search`` in the code.) It then goes to this maybe-company page (called
 
 At every step, the bot
 
-* minimally parses the web page so that it may advance to the next step,
-* sends simplified HTTP response information to the manager
-* pauses randomly for a time on the order of a second to avoid looking so obviously like a bot
+1. minimally parses the web page so that it may advance to the next step,
+2. sends information about the HTTP response to the manager
+3. pauses randomly for a time on the order of a second to avoid looking so obviously like a bot
 
-The HTTP responses look like this. ::
+When it sends the response information to the manager,
 
-    POST https://$username:$installationid@deleware.dada.pink/response
-    before_ip_address: 123.456.67.89
-    body is the serialized request
+"Before" IP address
+    The previous IP address that the manager told the worker
+Current IP address (implicitly)
+    The IP address that the manager currently detects from the worker
+Simplified HTTP response from Delaware
+    This the main information that we are looking for.
+Whether the request appeared successful
+    Based on a rough parse, the worker says whether the request was successful. The manager uses this for selecting file numbers for job assignments (in the first step of the process)
 
-### Saving information on the manager
+Saving information on the manager
+---------------------------------------
+XXX FIX THIS SECTION XXX
+
 When the manager recieves a response, it first needs to determine an
 additional piece of information. The worker has provided the "before"
 IP address; the manager now determines the "after" IP address.
@@ -115,12 +123,14 @@ task for two main reasons. First, this reduces the load of the manager.
 Second, we can reuse the separate task for loading backups; we don't need
 to write a separate thing for that.
 
-### Waiting
-The worker waits a random time on the order of minutes or hours before
+Waiting
+--------------
+The worker waits a random time on the order of seconds before
 repeating the above process. This way, the bots may look a bit less like
 bots and thus be harder to block.
 
-## Questions you might have
+Questions you might have
+============================
 Why not just in-browser Javascript?
     We can't make cross-domain requests, so we'd have to inject something into the Deleware page, and that's annoying, especially for this site.
 
@@ -139,7 +149,14 @@ Has anyone tried talking to Delaware?
 How many companies?
     Dunno, but less than 600,000
 
-## Other references
+Other references
+===================
 
 * https://delecorp.delaware.gov/tin/FieldDesc.jsp#FILE%20NUMBER
 * http://corp.delaware.gov/directwebvend.shtml
+
+To do
+=========
+In order to avoid faking of data, enforce that the worker only complete
+work that it has been ordered to. This could happen through some form of
+encryption or just by looking for strange patterns in the server logs.
