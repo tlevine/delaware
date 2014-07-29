@@ -21,7 +21,6 @@ def log():
         protocol = bottle.request.environ.get('SERVER_PROTOCOL'),
         status = bottle.response.status_code,
     ))
-    db.save_request(bottle.request)
 
 
 def rate_limit(f):
@@ -35,6 +34,7 @@ def rate_limit(f):
 @b.post('/directions')
 @rate_limit
 def directions():
+    db.save_request(bottle.request)
     ip_address = bottle.request.remote_route
     return {
         'ip_address': ip_address,
@@ -44,13 +44,14 @@ def directions():
 @b.post('/response')
 @rate_limit
 def response():
+    db.save_request(bottle.request)
     ip_address = bottle.request.remote_route
     return {
         'ip_address': ip_address,
     }
 
-@b.get('<_:path>'):
-def info(_):
+@b.get('/')
+def info():
     bottle.redirect('http://small.dada.pink/delaware/README')
 
 app = b
