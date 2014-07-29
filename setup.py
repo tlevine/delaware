@@ -2,6 +2,8 @@ from functools import partial
 import os
 from distutils.core import setup
 
+from shared.version import VERSION
+
 requirements = [
     'randua>=0.0.1',
     'requests>=2.3.0',
@@ -14,7 +16,7 @@ extras = {
 
 setup(
     name = "delaware",
-    version = '0.0.1',
+    version = VERSION,
 
     author = "Thomas Levine",
     author_email = "_@thomaslevine.com",
