@@ -64,7 +64,7 @@ class Dadabase:
             'ip_address': request.remote_addr,
             'method': request.method,
             'url': request.url,
-            'data': request.data,
+            'data': request.json,
         }
         with open(os.path.join(self.requestdir, filename), 'a') as fp:
             fp.write(json.dumps(data) + '\n')
