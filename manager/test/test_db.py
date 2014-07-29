@@ -74,7 +74,7 @@ class TestDadabase(TestCase):
     def test_save_request(self):
         ip_address = '12.82.2.9'
         sql = 'SELECT count(*) FROM requests WHERE ip_address = "%s"'
-        FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'data'])
+        FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'json'])
         fakerequest = FakeRequest(ip_address, 'post', '/directions', {'foo': 'bar'})
         now = datetime.datetime(2014,4,3)
 
