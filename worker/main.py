@@ -1,3 +1,4 @@
+import os
 from functools import partial
 
 import worker.local as local
@@ -5,6 +6,9 @@ import worker.download as dl
 import worker.remote as remote
 import worker.parse as parse
 from worker.params import params
+
+ca_bundle_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    'certificates', 'delaware.dada.pink.crt')
 
 def work(local = False):
     if local:
