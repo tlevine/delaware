@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 import sys
+
 from manager.main import app
+from shared.version import check_version
+
+check_version()
+
 try:
     app.run(server = 'cherrypy')
 except ImportError as e:
