@@ -24,7 +24,7 @@ def respond(verify, to_dict, manager_address, username, installation, before_add
         'response': to_dict(response)
     }
     r = requests.post(manager_address + '/response', data = data, verify = verify)
-    logger.info('Uploaded a %07d response: %s' % (file_number, response.url))
+    logger.info('Uploaded a %07d response' % file_number)
     return r.json()['ip_address']
 
 def directions(verify, manager_address, username, installation):
