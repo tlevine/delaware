@@ -1,8 +1,10 @@
 from bottle import Bottle, run, request, response
 
 from manager.db import Dadabase
+from manager.args import parser
 
-db = Dadabase('sqlite:////home/tlevine/foo.db', '/home/tlevine/foo')
+args = parser.parse_args()
+db = Dadabase(args.database, args.request_directory)
 b = Bottle()
 
 def rate_limit(f):
