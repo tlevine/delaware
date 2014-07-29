@@ -1,4 +1,5 @@
 [worker]
+ca_bundle_file = the-ca-bundle-file.crt
 manager_address = https://delaware.dada.pink
 username = tlevine
 installation = 065db5d3-924c-4129-9c93-2360538a4ce5
