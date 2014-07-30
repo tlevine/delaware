@@ -23,8 +23,7 @@ def params():
         if not os.path.exists(DIRECTORY):
             os.makedirs(DIRECTORY)
 
-        relative_filename = os.path.join('certificates', 'delaware.dada.pink.crt')
-        ca_bundle_file = pkg_resources.resource_filename(__name__, relative_filename)
+        ca_bundle_file = pkg_resources.resource_filename('certificates', 'delaware.dada.pink.crt')
         write_config_params(ca_bundle_file, manager_address, username, installation, CONFIG)
     else:
         ca_bundle_file, manager_address, username, installation = from_config
