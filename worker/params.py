@@ -1,4 +1,4 @@
-import pkg_resources
+import sys
 try:
     # Python 3
     from configparser import ConfigParser
@@ -23,7 +23,7 @@ def params():
         if not os.path.exists(DIRECTORY):
             os.makedirs(DIRECTORY)
 
-        ca_bundle_file = pkg_resources.resource_filename('certificates', 'delaware.dada.pink.crt')
+        ca_bundle_file = os.path.join(sys.prefix, 'certificates', 'delaware.dada.pink.crt')
         write_config_params(ca_bundle_file, manager_address, username, installation, CONFIG)
     else:
         ca_bundle_file, manager_address, username, installation = from_config

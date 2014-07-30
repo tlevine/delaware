@@ -29,7 +29,7 @@ setup(
     tests_require = ['nose'],
 
     packages = ['shared', 'manager','worker','reader'][:3],
-    data_files = [('certificates', ['certificates/delaware.dada.pink.crt']),
+    data_files = [('certificates', ['certificates/delaware.dada.pink.crt'])],
     scripts = [os.path.join('bin',script) for script in ['delemanager','deleworker','delereader']],
 
     classifiers=[
