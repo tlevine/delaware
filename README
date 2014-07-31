@@ -218,3 +218,6 @@ encryption or just by looking for strange patterns in the server logs.
 The rate-limit query on the database isn't working. Fix it.
 
 Figure out what the actual rate limit is.
+
+Switch the user agent to be a link to a website with an explanation for
+the Delaware people of what is going on.
