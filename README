@@ -28,7 +28,7 @@ open a terminal.
 
 You'll see a block of text like this when you need to type things into the terminal. ::
 
-    # This is a code block!
+    When you need to type something into a terminal, it will look like this.
 
 ## Installing with Pip
 If you already have Python and Pip installed, you can just run this command. ::
