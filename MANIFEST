@@ -4,6 +4,7 @@ setup.py
 bin/delemanager
 bin/delereader
 bin/deleworker
+certificates/delaware.dada.pink.crt
 manager/__init__.py
 manager/args.py
 manager/db.py
