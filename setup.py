@@ -11,7 +11,7 @@ requirements = [
 ]
 extras = {
     'manager': ['dataset>=0.5.2', 'bottle>=0.12.7', 'cherrypy>=3.5.0'],
-    'reader': [],
+    'reader': ['lxml>=3.3.5'],
 }
 
 setup(
