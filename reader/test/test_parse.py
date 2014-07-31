@@ -5,10 +5,12 @@ import nose.tools as n
 import reader.parse as p
 
 with open(os.path.join('reader', 'test', 'fixtures', 'result-response.json')) as fp:
-    data = json.load(fp)
+    result = json.load(fp)
+with open(os.path.join('reader', 'test', 'fixtures', 'direction-response.json')) as fp:
+    direction = json.load(fp)
 
 def test_parse():
-    observed = dict(p.parse(data))
+    observed = dict(p.parse(result))
     expected = {
         'datetime_received': '2014-07-29T22:03:28.875019',
         'username': 'tlevine-python2',
@@ -29,4 +31,5 @@ def test_parse():
     n.assert_dict_equal(observed, expected)
 
 def test_is_entity_detail():
-    n.assert_true(p.is_entity_detail(data))
+    n.assert_false(p.is_entity_detail(direction))
+    n.assert_true(p.is_entity_detail(result))
