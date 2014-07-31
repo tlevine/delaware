@@ -4,7 +4,7 @@ from args import parser
 import reader.parse as parse
 
 def main():
-    sink = getsink()
+    sink = getsink(sys.stdout)
     requestdir = parser.parse_args().request_directory
     for filename, salted_installation, datetime in files(requestdir):
         with open(filename, 'r') as fp:
@@ -19,7 +19,7 @@ def files(requestdir):
             filename = os.path.join(requestdir, salted_installation, datetime)
             yield filename, salted_installation, datetime
 
-def sink(fp = sys.stdout):
+def sink(fp):
     fieldnames = [
         'datetime_received',
         'username',
