@@ -1,15 +1,16 @@
 import sys
 from args import parser
 
+import reader.parse as parse
+
 def main():
     sink = getsink()
     requestdir = parser.parse_args().request_directory
     for filename, salted_installation, datetime in files(requestdir):
         with open(filename, 'r') as fp:
             data = json.load(fp)
-        result = parse(data)
+        result = parse.parse(data)
         if result != None:
-            result['datetime'] = datetime
             sink.writerow(result)
 
 def files(requestdir):
@@ -20,8 +21,7 @@ def files(requestdir):
 
 def sink(fp = sys.stdout):
     fieldnames = [
-        'datetime',
-        'file_number',
-        # ...
-    ]
-    csv.DictWriter(fp, fieldnames = fieldnames)
+        'datetime_received',
+        'username',
+    ] + parse.KEY_MAPPING.keys()
+    return csv.DictWriter(fp, fieldnames = fieldnames)
