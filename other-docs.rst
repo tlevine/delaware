@@ -159,7 +159,11 @@ encryption or just by looking for strange patterns in the server logs.
 
 The rate-limit query on the database isn't working. Fix it.
 
-Figure out what the actual rate limit is.
+Figure out what the actual rate limit is. Or just stick with something
+arbitrary and low. One company takes about two requests, and we're
+searching a range of 8 million companies; 1600 requests per IP address
+per day would give us one pass in 10,000 IP-address-days. That's about
+three months with 100 IP addresses.
 
 Switch the user agent to be a link to a website with an explanation for
 the Delaware people of what is going on.
@@ -167,3 +171,6 @@ the Delaware people of what is going on.
 * http://www.pyinstaller.org/
 * https://pypi.python.org/pypi/py2app/
 * http://www.py2exe.org/
+
+Allow results to be sent to multiple servers, as a backup in case something
+goes wrong with the main server.
