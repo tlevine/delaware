@@ -9,4 +9,4 @@ check_version()
 try:
     main()
 except ImportError as e:
-    sys.stderr.write('Dependencies are missing; run "pip install delaware[reader]\n'.)
+    sys.stderr.write('Dependencies are missing; run "pip install delaware[reader]\n.')

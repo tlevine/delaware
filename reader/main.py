@@ -1,11 +1,14 @@
+import os
+import json
+import csv
 import sys
-from args import parser
 
+from reader.args import parser
 import reader.parse as parse
 
 def main():
     sink = getsink(sys.stdout)
-    requestdir = parser.parse_args().request_directory
+    requestdir = parser.parse_args().requestdir
     for filename, salted_installation, datetime in files(requestdir):
         with open(filename, 'r') as fp:
             data = json.load(fp)
@@ -19,9 +22,9 @@ def files(requestdir):
             filename = os.path.join(requestdir, salted_installation, datetime)
             yield filename, salted_installation, datetime
 
-def sink(fp):
+def getsink(fp):
     fieldnames = [
         'datetime_received',
         'username',
-    ] + parse.KEY_MAPPING.keys()
+    ] + list(parse.KEY_MAPPING.keys())
     return csv.DictWriter(fp, fieldnames = fieldnames)
