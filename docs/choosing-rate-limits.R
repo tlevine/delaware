@@ -1,5 +1,5 @@
 N <- 8e6
-ip.addresses <- 10 * 2^(1:6)
+ip.addresses <- 10 * 2^(3:6)
 daily.quota <- 100 * 2^(1:4)
 
 plot(0, 0, main = 'What should the daily quota be?',
