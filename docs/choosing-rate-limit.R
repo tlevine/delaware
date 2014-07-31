@@ -2,15 +2,19 @@ N <- 8e6
 ip.addresses <- 10 * 2^(3:6)
 daily.quota <- 100 * 2^(1:4)
 
-plot(0, 0, main = 'What should the rate limit be?',
+ymax <- 200
+
+png('choosing-rate-limit.png', width = 1600, height = 900, pointsize = 24)
+plot(0, 0, main = 'What should the rate limit be for the Delaware corporates scraper?',
+     sub = '(Different lines are for different amounts of IP addresses.)',
      xlab = 'Number of requests that one worker makes per day',
-     xlim = c(0, max(daily.quota) + 100),
+     xlim = c(0, max(daily.quota) + 200),
      ylab = 'How many months to download all the data',
-     ylim = c(0, 400),
+     ylim = c(0, ymax),
      type = 'n', bty = 'n', axes = F
 )
 axis(1)
-axis(2, at = ((0:12)/12) * 365, labels = 0:12, las = 1)
+axis(2, at = ((0:6)/12) * 365, labels = 0:6, las = 1)
 abline(h = 0)
 
 color <- 1
@@ -20,6 +24,5 @@ for (i in ip.addresses) {
     color <- color + 1
 }
 text(max(daily.quota), 2*N/(ip.addresses * max(daily.quota)),
-     label = ip.addresses, pos = 4)
-text(max(daily.quota), 350, pos = 2,
-     'Different lines are for different\namounts of IP addresses.\n(80 addresses, 160 addresses, &c.)')
+     label = paste(ip.addresses, 'addresses'), pos = 4)
+dev.off()
