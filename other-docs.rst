@@ -163,3 +163,7 @@ Figure out what the actual rate limit is.
 
 Switch the user agent to be a link to a website with an explanation for
 the Delaware people of what is going on.
+
+* http://www.pyinstaller.org/
+* https://pypi.python.org/pypi/py2app/
+* http://www.py2exe.org/
