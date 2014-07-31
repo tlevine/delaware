@@ -1,6 +1,6 @@
 N <- 8e6
 ip.addresses <- 10 * 2^(3:6)
-daily.quota <- 100 * 2^(1:4)
+daily.quota <- seq(500, 4000, 50)
 
 ymax <- 200
 
@@ -8,7 +8,7 @@ png('choosing-rate-limit.png', width = 1600, height = 900, pointsize = 24)
 plot(0, 0, main = 'What should the rate limit be for the Delaware corporates scraper?',
      sub = '(Different lines are for different amounts of IP addresses.)',
      xlab = 'Number of requests that one worker makes per day',
-     xlim = c(0, max(daily.quota) + 200),
+     xlim = c(0, max(daily.quota) * 9/8),
      ylab = 'How many months to download all the data',
      ylim = c(0, ymax),
      type = 'n', bty = 'n', axes = F
