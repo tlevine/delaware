@@ -4,7 +4,8 @@ import random
 import time
 from logging import getLogger
 
-from randua import generate as get_user_agent
+# from randua import generate as get_user_agent
+get_user_agent = lambda: 'https://pypi.python.org/pypi/delaware'
 from picklecache import cache
 import requests
 
