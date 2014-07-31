@@ -51,7 +51,7 @@ def parse_entity_detail(data):
     return result
 
 def is_entity_detail(data):
-    return 'FieldDesc.jsp' in text(data)
+    return 'response' in data['body'].keys() and 'FieldDesc.jsp' in text(data)
 
 def text(data):
     'Return the text of the response from Delaware.'
