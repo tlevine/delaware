@@ -1,22 +1,22 @@
 Get Deleware company registration data!
 +++++++++++++++++++++++++++++++++++++++++++++
 
-Some people think it would be good for data about company registrations to
-be freely distributed and free of charge. The State of Delaware apparently
-doesn't think so; Delaware blocks computers from accessing the
+It might be nice if it were easy to get data about company registrations.
+People tell me that this is a bit hard in Delaware. While much information
+is available through the
 `General Information Name Search <https://delecorp.delaware.gov/tin/GINameSearch.jsp>`_
-site if they make more than a few hundred (I'm not sure of the exact number.)
-requests in a short time.
+site, a single person is only allowed to make so many requests to the site.
+(I'm not sure of the exact number; this is just what other people tell me.)
 
-In order to download all of the data, we are thus using a swarm of computers
-from different IP addresses, each making very few requests to the site.
-**You can help!**
+In order to download all of the data, we are thus getting a bunch of different
+people to all download a small piece of the data, staying within the quota that
+he or she or ze is allowed. **You can help!**
 
-You just need to install a program and let it keep running. It will
+You just need to install this program and let it keep running. It will
 periodically contact a central server for directions, and it will query
-Delaware's General Information Name Search accordingly. It is very careful
-to avoid being blocked. But if it detects that you are on a new IP address
-it will take advantage of that.
+Delaware's General Information Name Search accordingly. It does a lot of
+things to check that you are staying within your quota and to avoid crashing
+Delaware's server.
 
 Installing
 ==================
@@ -46,7 +46,7 @@ Running
 =======================
 Once you've installed the program, type this into a terminal. ::
 
-    deleworker
+    delaware
 
 It'll ask you a few questions the first time you run it, but you can totally
 ignore it after that.
