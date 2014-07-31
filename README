@@ -20,18 +20,23 @@ Delaware's server.
 
 Installing
 ==================
-Open a terminal. Here are directions for
-`Mac <http://www.ehow.com/how_6762372_open-terminal-apple.html>`_ and
-`Windows <http://www.ehow.com/how_8128463_open-terminal-session-windows-7.html>`_.
-If you are using another operating system, you probably already know how to
-open a terminal.
+Two ways of installing are explained below.
 
-You'll see a block of text like this when you need to type things into the terminal. ::
+Standalone installation
+    For most people
+Installing with Pip
+    For people who know what Python and Pip and terminals are
 
-    When you need to type something into a terminal, it will look like this.
+Standalone installation
+--------------------------
+I am going to make a package with `PyInstaller <http://www.pyinstaller.org/>`_
+and put directions here as to how to install it. So this installation method
+isn't available yet.
 
-## Installing with Pip
-If you already have Python and Pip installed, you can just run this command. ::
+Installing with Pip
+---------------------
+If you are used to using a terminal and already have Python and Pip installed,
+you can just run this command. ::
 
     pip install delaware
 
@@ -40,30 +45,6 @@ If that gives you an error about permissions, try this command. ::
     sudo pip install delaware
 
 If that worked, you are **finished** with the installation.
-
-## Installing Python
-If that command gave you an error, it's probably because you
-don't have ``pip``. If you get an error, run this command to check whether you
-have Python installed. ::
-
-    python --version
-
-It should say "Python" and then a version number. If it gives you an error,
-follow `these directions <https://www.python.org/download/>`_ to install Python.
-
-At this point, you should have Python installed. 
-
-XXX Add a note about Enthought, Continuum, &c.
-
-## Installing without Pip
-Once you have Python installed, (You don't need Pip.) download the package
-(I have to make this.) and run the setup like so. ::
-
-    tar xzf delaware.tar.gz
-    cd delaware
-    sudo python setup.py
-
-(That's three commands, one per line.)
 
 Running
 =======================
@@ -76,6 +57,6 @@ ignore it after that.
 
 If errors come up
 ========================
-If the program stops running, please send the error message to _@thomaslevine.com.
-Also, please save the ``~/.delaware`` directory, as it contains files that can be
-helpful for figuring out what went wrong.
+If the program stops running, please send the error message to
+_@thomaslevine.com. Also, please don't delete the ``~/.delaware`` directory,
+as it contains files that can be helpful for figuring out what went wrong.
