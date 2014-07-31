@@ -44,8 +44,6 @@ If that gives you an error about permissions, try this command. ::
 
     sudo pip install delaware
 
-If that worked, you are **finished** with the installation.
-
 Running
 =======================
 Once you've installed the program, type this into a terminal. ::
