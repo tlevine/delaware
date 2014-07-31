@@ -20,27 +20,46 @@ Delaware's server.
 
 Installing
 ==================
-The installation process involves running things in a terminal. Remind
-me to put some directions here about how to do that in Mac and Windows.
+Open a terminal. Here are directions for
+`Mac <http://www.ehow.com/how_6762372_open-terminal-apple.html>`_ and
+`Windows <http://www.ehow.com/how_8128463_open-terminal-session-windows-7.html>`_.
+If you are using another operating system, you probably already know how to
+open a terminal.
 
-If you already have Python and Pip installed, you can just do this. ::
+You'll see a block of text like this when you need to type things into the terminal. ::
+
+    # This is a code block!
+
+## Installing with Pip
+If you already have Python and Pip installed, you can just run this command. ::
 
     sudo pip install delaware
 
-If you have Python but not Pip, you can download a standalone package
+If that worked, you are **finished** with the installation.
+
+## Installing Python
+If that command gave you an error, it's probably because you
+don't have ``pip``. If you get an error, run this command to check whether you
+have Python installed.
+
+    python --version
+
+It should say "Python" and then a version number. If it gives you an error,
+follow `these directions <https://www.python.org/download/>`_ to install Python.
+
+At this point, you should have Python installed. 
+
+XXX Add a note about Enthought, Continuum, &c.
+
+## Installing without Pip
+Once you have Python installed, (You don't need Pip.) download the package
 (I have to make this.) and run the setup like so. ::
 
     tar xzf delaware.tar.gz
     cd delaware
     sudo python setup.py
 
-If you don't have Python installed, follow
-`these directions <https://www.python.org/download/>`_.
-
-If you are on any operating system other than Windows, you probably
-already have Python installed.
-
-Add a note about Enthought, Continuum, &c.
+(That's three commands, one per line.)
 
 Running
 =======================
