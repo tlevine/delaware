@@ -23,12 +23,22 @@ def text_contents(nodes):
 
 def parse(data):
     html = lxml.html.fromstring(text(data))
+
+    # Get the appropriate fields.
     key_tds = html.xpath('//td[@bgcolor="#d7d7d7"]')
     value_tds = [td.xpath('following-sibling::td')[0] for td in key_tds]
+
+    # Pair them nicely
     texts = zip(text_contents(key_tds), text_contents(value_tds))
     result = OrderedDict((KEY_MAPPING[key], value) for (key, value) in texts)
+
+    # Clean them up a bit
+    result['entity_date'] = result['entity_date'].replace('(mm/dd/yyyy)', '')
+
+    # Add fields from outside the HTML
     result['datetime_received'] = data['date']
     result['username'] = data['body']['username']
+
     return result
 
 def is_entity_detail(data):
