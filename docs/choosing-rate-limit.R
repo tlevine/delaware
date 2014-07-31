@@ -1,6 +1,6 @@
 N <- 8e6
 ip.addresses <- 10 * 2^(3:6)
-daily.quota <- seq(500, 4000, 50)
+daily.quota <- seq(50, 4000, 50)
 
 ymax <- 200
 
