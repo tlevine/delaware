@@ -30,5 +30,7 @@ def getsink(fp):
     fieldnames = [
         'datetime_received',
         'username',
-    ] + list(parse.KEY_MAPPING.keys())
-    return csv.DictWriter(fp, fieldnames = fieldnames)
+    ] + list(parse.KEY_MAPPING.values())
+    writer = csv.DictWriter(fp, fieldnames = fieldnames)
+    writer.writeheader()
+    return writer
