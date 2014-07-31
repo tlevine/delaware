@@ -33,6 +33,10 @@ You'll see a block of text like this when you need to type things into the termi
 ## Installing with Pip
 If you already have Python and Pip installed, you can just run this command. ::
 
+    pip install delaware
+
+If that gives you an error about permissions, try this command. ::
+
     sudo pip install delaware
 
 If that worked, you are **finished** with the installation.
