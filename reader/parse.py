@@ -18,10 +18,19 @@ KEY_MAPPING =  OrderedDict([
     ('Phone:', 'phone'),
 ])
 
+def parse(data):
+    '''
+    Given the parse of the JSON-encoded request to the manager,
+    determine whether it is a result page. If it is, return an
+    OrderedDict of the results. Otherwise, return None.
+    '''
+    if is_entity_detail(data):
+        return parse_entity_detail(data)
+
 def text_contents(nodes):
     return (node.text_content() for node in nodes)
 
-def parse(data):
+def parse_entity_detail(data):
     html = lxml.html.fromstring(text(data))
 
     # Get the appropriate fields.

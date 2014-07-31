@@ -12,9 +12,13 @@ def main():
     for filename, salted_installation, datetime in files(requestdir):
         with open(filename, 'r') as fp:
             data = json.load(fp)
-        result = parse.parse(data)
-        if result != None:
-            sink.writerow(result)
+        try:
+            result = parse.parse(data)
+        except:
+            sys.stderr.write('Error at %s\n' % filename)
+        else:
+            if result != None:
+                sink.writerow(result)
 
 def files(requestdir):
     for salted_installation in os.listdir(requestdir):
