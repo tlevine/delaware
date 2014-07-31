@@ -44,7 +44,7 @@ If that worked, you are **finished** with the installation.
 ## Installing Python
 If that command gave you an error, it's probably because you
 don't have ``pip``. If you get an error, run this command to check whether you
-have Python installed.
+have Python installed. ::
 
     python --version
 
