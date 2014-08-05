@@ -153,9 +153,13 @@ Other references
 
 To do
 =========
-In order to avoid faking of data, enforce that the worker only complete
-work that it has been ordered to. This could happen through some form of
-encryption or just by looking for strange patterns in the server logs.
+
+Do now
+-----------
+
+Add a global rate limit to avoid denying the service of the website;
+if we get like over 9,000 workers running at once, instruct many of them
+not to work for a little while so that we don't crash Delaware's server.
 
 The rate-limit query on the database isn't working. Fix it.
 
@@ -165,12 +169,23 @@ searching a range of 8 million companies; 1600 requests per IP address
 per day would give us one pass in 10,000 IP-address-days. That's about
 three months with 100 IP addresses.
 
+Do later
+-----------------
+Invent a confidence measure for the validity of a response, to deal
+with faked data. I think this would be based on the salted installation
+identifier, manual assessments of samples of the responses, and a look
+at the various components of the request.
+
 Switch the user agent to be a link to a website with an explanation for
-the Delaware people of what is going on.
+the Delaware people of what is going on. (It currently has a link to the
+page on PyPI, which is okay for now.)
+
+Package it for people who don't have Python.
 
 * http://www.pyinstaller.org/
 * https://pypi.python.org/pypi/py2app/
 * http://www.py2exe.org/
 
 Allow results to be sent to multiple servers, as a backup in case something
-goes wrong with the main server.
+goes wrong with the main server. (For configuration
+`this <http://stackoverflow.com/a/11866695>`_ will help.)
