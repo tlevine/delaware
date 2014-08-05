@@ -28,7 +28,7 @@ def rate_limit(f):
         if db.under_limit(bottle.request.remote_route[0]):
             return f()
         else:
-            bottle.response.status_code = 429
+            return None, 429
     return wrapper
 
 @b.post('/directions')
