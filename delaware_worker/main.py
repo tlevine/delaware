@@ -19,7 +19,7 @@ def work(local = False):
     sleep = dl.sleep
     home_response = None
 
-    shared.log.output('deleworker',
+    delaware_shared.log.output('deleworker',
         filename = os.path.join(os.path.expanduser('~'), '.delaware', 'worker.log'))
     while True:
         firm_file_number, before_address = get_work(directions, sleep)
