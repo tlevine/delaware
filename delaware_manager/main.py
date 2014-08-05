@@ -25,7 +25,7 @@ def log():
 
 def rate_limit(f):
     def wrapper():
-        if db.under_limit(bottle.request.remote_route):
+        if db.under_limit(bottle.request.remote_route[0]):
             return f()
         else:
             bottle.response.status_code = 429
@@ -35,7 +35,7 @@ def rate_limit(f):
 @rate_limit
 def directions():
     db.save_request(bottle.request)
-    ip_address = bottle.request.remote_route
+    ip_address = bottle.request.remote_route[0]
     return {
         'ip_address': ip_address,
         'file_number': db.file_number(),

@@ -82,11 +82,15 @@ class Dadabase:
 
         data = {
             'date': now.isoformat(),
-            'ip_address': request.remote_addr,
+            'ip_address': request.remote_addr[0],
             'method': request.method,
             'url': request.url,
             'body': body,
         }
         with open(path, 'a') as fp:
             fp.write(json.dumps(data) + '\n')
-        self.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': data['ip_address']})
+        d = int(now.timestamp())
+        self.disk['requests'].insert({'datetime': d, 'ip_address': data['ip_address']})
+        if data['body'].get('before_address') != data['ip_address']:
+            self.disk['requests'].insert({'datetime': d, 'ip_address': data['body']['before_address']})
+
