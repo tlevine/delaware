@@ -49,8 +49,11 @@ class Dadabase:
         'Return True if we are under the limit and it is safe to query the website.'
         if now == None:
             now = datetime.datetime.now()
+        if not isinstance(ip_address, str):
+            raise TypeError('ip_address must be str.')
         params = (int((now - TIMESPAN).timestamp()), ip_address)
-        result = self.disk.query('SELECT count(*) FROM requests WHERE datetime > %d AND ip_address = "%s"' % params)
+        sql = 'SELECT count(*) FROM requests WHERE datetime > %d AND ip_address = "%s"' % params
+        result = self.disk.query(sql)
         return next(result)['count(*)'] < LIMIT
 
     def increment_file_number(self, file_number):
