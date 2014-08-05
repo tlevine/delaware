@@ -5,9 +5,9 @@ from shutil import copyfile
 
 import nose.tools as n
 
-import worker.params as p
+import delaware_worker.params as p
 
-CONFIG = os.path.join('worker','test','fixtures','config')
+CONFIG = os.path.join('delaware_worker','test','fixtures','config')
 
 def test_installation_id():
     observed = p.installation_id()

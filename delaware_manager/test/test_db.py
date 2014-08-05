@@ -8,7 +8,7 @@ from collections import namedtuple
 
 import nose.tools as n
 
-from manager.db import Dadabase, TIMESPAN, LIMIT
+from delaware_manager.db import Dadabase, TIMESPAN, LIMIT
 
 TMP = os.path.join('/tmp', 'test-dadabase')
 

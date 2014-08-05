@@ -5,9 +5,9 @@ from functools import partial
 
 import nose.tools as n
 
-import worker.parse as p
+import delaware_worker.parse as p
 
-FIXTURES = os.path.join('worker', 'test', 'fixtures')
+FIXTURES = os.path.join('delaware_worker', 'test', 'fixtures')
 
 def test():
     for testcase in TESTCASES:

@@ -2,11 +2,11 @@ import os, json
 
 import nose.tools as n
 
-import reader.parse as p
+import delaware_reader.parse as p
 
-with open(os.path.join('reader', 'test', 'fixtures', 'result-response.json')) as fp:
+with open(os.path.join('delaware_reader', 'test', 'fixtures', 'result-response.json')) as fp:
     result = json.load(fp)
-with open(os.path.join('reader', 'test', 'fixtures', 'direction-response.json')) as fp:
+with open(os.path.join('delaware_reader', 'test', 'fixtures', 'direction-response.json')) as fp:
     direction = json.load(fp)
 
 def test_parse():

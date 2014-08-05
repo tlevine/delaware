@@ -1,6 +1,6 @@
 import nose.tools as n
 
-from worker.download import headers, _sleep_seconds
+from delaware_worker.download import headers, _sleep_seconds
 
 def test_headers():
     expected = {
