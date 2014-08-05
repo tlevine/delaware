@@ -1,3 +1,4 @@
+import os
 try:
     from configparser import ConfigParser
 except ImportError:
@@ -5,7 +6,7 @@ except ImportError:
 import argparse
 
 c = ConfigParser()
-c.read(os.path.join(os.path.expanduser('~'), 'delaware', 'config'))
+c.read(os.path.join(os.path.expanduser('~'), '.delaware', 'config'))
 if 'manager' in c.sections():
     defaults = dict(c['manager'])
 else:

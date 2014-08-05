@@ -9,7 +9,7 @@ from delaware_manager.args import parser
 args = parser.parse_args()
 db = Dadabase(args.database, args.request_directory)
 b = bottle.Bottle()
-logger = shared.log.output('delemanager', filename = args.logfile)
+logger = delaware_shared.log.output('delemanager', filename = args.logfile)
 
 @b.hook('before_request')
 def log():
