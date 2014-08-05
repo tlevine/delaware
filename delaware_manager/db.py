@@ -19,7 +19,7 @@ class Dadabase:
         if not os.path.isdir(requestdir):
             os.makedirs(requestdir)
         self.disk.query('CREATE TABLE IF NOT EXISTS file_numbers ( file_number INTEGER );')
-        self.disk.query('CREATE TABLE IF NOT EXISTS requests ( datetime FLOAT, ip_address TEXT );')
+        self.disk.query('CREATE TABLE IF NOT EXISTS requests ( datetime INTEGER, ip_address TEXT );')
 
         self._init_cache()
 
@@ -49,7 +49,7 @@ class Dadabase:
         'Return True if we are under the limit and it is safe to query the website.'
         if now == None:
             now = datetime.datetime.now()
-        params = ((now - TIMESPAN).timestamp(), ip_address)
+        params = (int((now - TIMESPAN).timestamp()), ip_address)
         result = self.disk.query('SELECT count(*) FROM requests WHERE datetime > %d AND ip_address = "%s"' % params)
         return next(result)['count(*)'] < LIMIT
 
@@ -86,4 +86,4 @@ class Dadabase:
         }
         with open(path, 'a') as fp:
             fp.write(json.dumps(data) + '\n')
-        self.disk['requests'].insert({'datetime': now.timestamp(), 'ip_address': data['ip_address']})
+        self.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': data['ip_address']})
