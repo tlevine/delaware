@@ -1,12 +1,12 @@
 import os
 from functools import partial
 
-import shared.log
-import worker.local as local
-import worker.download as dl
-import worker.remote as remote
-import worker.parse as parse
-from worker.params import params
+import delaware_shared.log
+import delaware_worker.local as local
+import delaware_worker.download as dl
+import delaware_worker.remote as remote
+import delaware_worker.parse as parse
+from delaware_worker.params import params
 
 def work(local = False):
     if local:

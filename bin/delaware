@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from worker.main import work as main
-from shared.version import check_version
+from delaware_worker.main import work as main
+from delaware_shared.version import check_version
 
 check_version()
 main()

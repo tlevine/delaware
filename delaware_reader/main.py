@@ -3,8 +3,8 @@ import json
 import csv
 import sys
 
-from reader.args import parser
-import reader.parse as parse
+from delaware_reader.args import parser
+import delaware_reader.parse as parse
 
 def main():
     sink = getsink(sys.stdout)

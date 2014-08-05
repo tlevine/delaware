@@ -2,9 +2,9 @@ import datetime
 
 import bottle
 
-import shared.log
-from manager.db import Dadabase
-from manager.args import parser
+import delaware_shared.log
+from delaware_manager.db import Dadabase
+from delaware_manager.args import parser
 
 args = parser.parse_args()
 db = Dadabase(args.database, args.request_directory)
