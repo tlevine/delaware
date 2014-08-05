@@ -1,3 +1,4 @@
+from io import BytesIO
 import json
 from shutil import rmtree
 import datetime
@@ -74,8 +75,11 @@ class TestDadabase(TestCase):
     def test_save_request(self):
         ip_address = '12.82.2.9'
         sql = 'SELECT count(*) FROM requests WHERE ip_address = "%s"'
-        FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'json'])
-        fakerequest = FakeRequest(ip_address, 'post', '/directions', {'foo': 'bar'})
+
+        FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'body'])
+        body = BytesIO(json.dumps({'salted_installation': 'a' * 40, 'before_address': '1.2.3.4'}).encode('utf-8'))
+        fakerequest = FakeRequest([ip_address], 'post', '/directions', body)
+
         now = datetime.datetime(2014,4,3)
 
         # Record db before.
