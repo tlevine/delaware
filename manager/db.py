@@ -49,8 +49,8 @@ class Dadabase:
         'Return True if we are under the limit and it is safe to query the website.'
         if now == None:
             now = datetime.date.today()
-        params = ((now - TIMESPAN).isoformat(), ip_address)
-        result = self.disk.query('SELECT count(*) FROM requests WHERE datetime > "%s" AND ip_address = "%s"' % params)
+        params = ((now - TIMESPAN).timestamp(), ip_address)
+        result = self.disk.query('SELECT count(*) FROM requests WHERE datetime > %d AND ip_address = "%s"' % params)
         return next(result)['count(*)'] < LIMIT
 
     def increment_file_number(self, file_number):
@@ -86,4 +86,4 @@ class Dadabase:
         }
         with open(path, 'a') as fp:
             fp.write(json.dumps(data) + '\n')
-        self.disk['requests'].insert({'datetime': now, 'ip_address': data['ip_address']})
+        self.disk['requests'].insert({'datetime': now.timestamp(), 'ip_address': data['ip_address']})
