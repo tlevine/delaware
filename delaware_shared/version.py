@@ -4,7 +4,7 @@ try:
 except ImportError:
     import xmlrpc.client as xmlrpclib
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 
 message = '''
 Updates to the delaware scraper are available! 
