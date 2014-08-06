@@ -101,6 +101,6 @@ class Dadabase:
             fp.write(json.dumps(data) + '\n')
         d = int(now.timestamp())
         self.disk['requests'].insert({'datetime': d, 'ip_address': data['ip_address']})
-        if data['body'].get('before_address') != data['ip_address']:
+        if 'before_address' in data['body'] and data['body']['before_address'] != data['ip_address']:
             self.disk['requests'].insert({'datetime': d, 'ip_address': data['body']['before_address']})
 
