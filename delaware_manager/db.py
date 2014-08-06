@@ -8,8 +8,8 @@ from collections import Counter
 import dataset
 
 TIMESPAN = datetime.timedelta(days = 1)
-LIMIT = 100
-GLOBAL_LIMIT = LIMIT * 10
+LIMIT = 5e5 # a bit high, but we do need to make sixteen million requests, and I don't want it to take forever
+GLOBAL_LIMIT = 1e7 # Maximum of a million requests per day---a decent Apache 2.2.3 server should be able to handle this, right?
 
 class Dadabase:
     def __init__(self, dburl, requestdir, highest_file_number = 8e6):
@@ -46,7 +46,7 @@ class Dadabase:
         else:
             return self.random_file_number()
 
-    def under_limit(self, ip_address, now = None):
+    def under_limit(self, ip_address, now = None, limit = LIMIT, global_limit = GLOBAL_LIMIT):
         'Return True if we are under the limit and it is safe to query the website.'
         if now == None:
             now = datetime.datetime.now()
@@ -55,8 +55,8 @@ class Dadabase:
         params = {
             'now': int((now - TIMESPAN).timestamp()),
             'ip_address': ip_address,
-            'ip_address_limit': LIMIT,
-            'global_limit': GLOBAL_LIMIT,
+            'ip_address_limit': limit,
+            'global_limit': global_limit,
         }
         sql = '''
         SELECT

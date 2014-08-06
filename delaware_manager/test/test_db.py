@@ -47,19 +47,21 @@ class TestDadabase(TestCase):
         ip_address = '1.2.3.4'
         now = datetime.datetime(2014, 6, 24)
         later = now + (1.2 * TIMESPAN)
+        limit = 20
+        global_limit = 100
 
-        for _ in range(LIMIT - 2):
+        for _ in range(limit - 2):
             self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': ip_address})
-        n.assert_true(self.db.under_limit(ip_address, now = now))
+        n.assert_true(self.db.under_limit(ip_address, now = now, limit = limit, global_limit = global_limit))
 
         for _ in range(4):
             self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': ip_address})
-        n.assert_false(self.db.under_limit(ip_address, now = now))
-        n.assert_true(self.db.under_limit(ip_address, now = later))
+        n.assert_false(self.db.under_limit(ip_address, now = now, limit = limit, global_limit = global_limit))
+        n.assert_true(self.db.under_limit(ip_address, now = later, limit = limit, global_limit = global_limit))
 
-        for _ in range(GLOBAL_LIMIT):
+        for _ in range(global_limit):
             self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': 'another ip address'})
-        n.assert_false(self.db.under_limit(ip_address, now = now))
+        n.assert_false(self.db.under_limit(ip_address, now = now, limit = limit, global_limit = global_limit))
 
     def test_increment_file_number(self):
         file_number = 342
