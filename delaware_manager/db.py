@@ -9,6 +9,7 @@ import dataset
 
 TIMESPAN = datetime.timedelta(days = 1)
 LIMIT = 100
+GLOBAL_LIMIT = LIMIT * 10
 
 class Dadabase:
     def __init__(self, dburl, requestdir, highest_file_number = 8e6):
@@ -51,11 +52,19 @@ class Dadabase:
             now = datetime.datetime.now()
         if not isinstance(ip_address, str):
             raise TypeError('ip_address must be str.')
-        params = (int((now - TIMESPAN).timestamp()), ip_address)
-        sql = 'SELECT count(*) FROM requests WHERE datetime > %d AND ip_address = "%s"' % params
+        params = {
+            'now': int((now - TIMESPAN).timestamp()),
+            'ip_address': ip_address,
+            'ip_address_limit': LIMIT,
+            'global_limit': GLOBAL_LIMIT,
+        }
+        sql = '''
+        SELECT
+      ( SELECT count(*) FROM requests WHERE datetime > %(now)d AND ip_address = "%(ip_address)s" ) < %(ip_address_limit)d,
+      ( SELECT count(*) FROM requests WHERE datetime > %(now)d ) < %(global_limit)d;
+        ''' % params
         result = self.disk.query(sql)
-        c = next(result)['count(*)']
-        return c < LIMIT
+        return all(next(result).values())
 
     def increment_file_number(self, file_number):
         self.disk['file_numbers'].insert({'file_number':file_number})

@@ -9,7 +9,7 @@ from collections import namedtuple
 
 import nose.tools as n
 
-from delaware_manager.db import Dadabase, TIMESPAN, LIMIT
+from delaware_manager.db import Dadabase, TIMESPAN, LIMIT, GLOBAL_LIMIT
 
 TMP = os.path.join('/tmp', 'test-dadabase')
 
@@ -56,6 +56,10 @@ class TestDadabase(TestCase):
             self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': ip_address})
         n.assert_false(self.db.under_limit(ip_address, now = now))
         n.assert_true(self.db.under_limit(ip_address, now = later))
+
+        for _ in range(GLOBAL_LIMIT):
+            self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': 'another ip address'})
+        n.assert_false(self.db.under_limit(ip_address, now = now))
 
     def test_increment_file_number(self):
         file_number = 342
