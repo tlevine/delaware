@@ -151,39 +151,42 @@ Other references
 * https://delecorp.delaware.gov/tin/FieldDesc.jsp#FILE%20NUMBER
 * http://corp.delaware.gov/directwebvend.shtml
 
-To do
-=========
+To do, eventually
+===================
 
-Do now
+Rate limits
 -----------
+Figure out what the actual rate limit is. I
+`asked <email-from-delaware>`_
+Delaware about this and something else, and they weren't helpful.
 
-Add a global rate limit to avoid denying the service of the website;
-if we get like over 9,000 workers running at once, instruct many of them
-not to work for a little while so that we don't crash Delaware's server.
-
-Figure out what the actual rate limit is. Or just stick with something
+Until then I just came up with something
 arbitrary and low. One company takes about two requests, and we're
 searching a range of 8 million companies; 1600 requests per IP address
 per day would give us one pass in 10,000 IP-address-days. That's about
 three months with 100 IP addresses.
 
-Do later
------------------
+Confidence and security
+---------------------------
 Invent a confidence measure for the validity of a response, to deal
 with faked data. I think this would be based on the salted installation
 identifier, manual assessments of samples of the responses, and a look
 at the various components of the request.
 
+Allow results to be sent to multiple servers, as a backup in case something
+goes wrong with the main server. (For configuration
+`this <http://stackoverflow.com/a/11866695>`_ will help.)
+
+Documentation
+---------------
 Switch the user agent to be a link to a website with an explanation for
 the Delaware people of what is going on. (It currently has a link to the
 page on PyPI, which is okay for now.)
 
+Packaging
+------------
 Package it for people who don't have Python.
 
 * http://www.pyinstaller.org/
 * https://pypi.python.org/pypi/py2app/
 * http://www.py2exe.org/
-
-Allow results to be sent to multiple servers, as a backup in case something
-goes wrong with the main server. (For configuration
-`this <http://stackoverflow.com/a/11866695>`_ will help.)
