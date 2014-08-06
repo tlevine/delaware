@@ -77,7 +77,8 @@ class TestDadabase(TestCase):
         sql = 'SELECT count(*) FROM requests WHERE ip_address = "%s"'
 
         FakeRequest = namedtuple('Request', ['remote_addr', 'method', 'url', 'body'])
-        body = BytesIO(json.dumps({'salted_installation': 'a' * 40, 'before_address': '1.2.3.4'}).encode('utf-8'))
+        data = {'salted_installation': 'a' * 40, 'before_address': '1.2.3.4'}
+        body = BytesIO(json.dumps(data).encode('utf-8'))
         fakerequest = FakeRequest([ip_address], 'post', '/directions', body)
 
         now = datetime.datetime(2014,4,3)
@@ -92,7 +93,7 @@ class TestDadabase(TestCase):
         tmp.seek(0)
         one_log_line = json.load(open(tmp.name,'r'))
         expected = {
-            'data': {'foo': 'bar'},
+            'data': data,
             'date': '2014-04-03T00:00:00',
             'ip_address': '12.82.2.9',
             'method': 'post',
