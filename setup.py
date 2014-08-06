@@ -30,7 +30,7 @@ setup(
 
     packages = ['delaware_' + suffix for suffix in ['shared', 'manager','worker','reader']],
     data_files = [('certificates', ['certificates/delaware.dada.pink.crt'])],
-    scripts = [os.path.join('bin',script) for script in ['delemanager','deleworker','delereader']],
+    scripts = [os.path.join('bin',script) for script in ['delaware', 'delemanager','deleworker','delereader']],
 
     classifiers=[
         'Programming Language :: Python :: 2.7',
