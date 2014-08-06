@@ -46,7 +46,6 @@ def parse_entity_detail(data):
 
     # Add fields from outside the HTML
     result['datetime_received'] = data['date']
-    result['username'] = data['body']['username']
 
     return result
 

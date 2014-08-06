@@ -29,7 +29,6 @@ def files(requestdir):
 def getsink(fp):
     fieldnames = [
         'datetime_received',
-        'username',
     ] + list(parse.KEY_MAPPING.values())
     writer = csv.DictWriter(fp, fieldnames = fieldnames)
     writer.writeheader()

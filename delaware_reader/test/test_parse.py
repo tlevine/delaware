@@ -13,7 +13,6 @@ def test_parse():
     observed = dict(p.parse(result))
     expected = {
         'datetime_received': '2014-07-29T22:03:28.875019',
-        'username': 'tlevine-python2',
         'address': '1013 CENTRE RD STE 403-A',
         'city': 'WILMINGTON',
         'country': 'NEW CASTLE',
