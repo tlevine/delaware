@@ -46,17 +46,15 @@ class TestDadabase(TestCase):
     def test_under_limit(self):
         ip_address = '1.2.3.4'
         now = datetime.datetime(2014, 6, 24)
+        later = now + (1.2 * TIMESPAN)
 
         for _ in range(LIMIT - 2):
-            self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
+            self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': ip_address})
         n.assert_true(self.db.under_limit(ip_address, now = now))
 
         for _ in range(4):
-            self.db.disk['requests'].insert({'datetime': now, 'ip_address': ip_address})
+            self.db.disk['requests'].insert({'datetime': int(now.timestamp()), 'ip_address': ip_address})
         n.assert_false(self.db.under_limit(ip_address, now = now))
-
-        later = now + (2 * TIMESPAN)
-        print(list(self.db.disk['requests'].all()))
         n.assert_true(self.db.under_limit(ip_address, now = later))
 
     def test_increment_file_number(self):
