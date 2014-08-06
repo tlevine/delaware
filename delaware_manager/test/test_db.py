@@ -93,9 +93,9 @@ class TestDadabase(TestCase):
         tmp.seek(0)
         one_log_line = json.load(open(tmp.name,'r'))
         expected = {
-            'data': data,
+            'body': data,
             'date': '2014-04-03T00:00:00',
-            'ip_address': '12.82.2.9',
+            'ip_address': ip_address,
             'method': 'post',
             'url': '/directions'
         }
