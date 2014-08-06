@@ -36,20 +36,64 @@ def installation_id():
 def prompt_params():
     question = '''
 You are running a program that searches for data on companies registered
-in the State of Deleware. It contacts Tom's (http://dada.pink) server for
-directions, queries the General Information Name Search
-(https://delecorp.delaware.gov/tin/GINameSearch.jsp) accordingly, and sends
-the results to Tom's server. This will all happen without any effort from
-you as long as you keep the program running.
+in the State of Deleware.
 
-Your computer will collect data and send it to Tom, and Tom is going to
-redistribute the data under XXX license; is that okay? If so, type "yes";
-if not, hit ctrl+C to exit the program.
+==============================
+What it does
+==============================
+It contacts Tom's (http://dada.pink) server for directions, queries the
+General Information Name Search directions, queries the General Information
+Name Search (https://delecorp.delaware.gov/tin/GINameSearch.jsp) accordingly,
+and sends the results to Tom's server. This will all happen without any
+effort from you as long as you keep the program running.
+
+==============================
+Licensing
+==============================
+Your computer will collect data and send them to Tom, and Tom is going to
+redistribute the data under the Open Data Commons Open Database License
+(http://opendatacommons.org/licenses/odbl/).
+
+==============================
+How Delaware might react
+==============================
+Tom would like you to know that Delaware might get annoyed at you for running
+this program. Tom heard from other people that this website bans IP addresses
+after they have made a few hundred requests per day. He is skeptical that the
+limit is actually this low, but the point is that you might get banned from the
+website. (He asked the Division of Corporations about, and their response to
+this question was not helpful.)
+
+Also, he has heard that Delaware sends scary letters to people who use this
+website, so they might send you one.
+
+==============================
+Why access the data this way
+==============================
+It would be nice if there were a better way to get these data. Tom heard that
+the Division of Corporations is exempt from freedom of information law, but
+it might be worth looking further into that avenue.
+
+It may be that some companies (http://corp.delaware.gov/directwebvend.shtml)
+can sell you the data, but Tom isn't sure; he contacted the Delaware
+Division of Corporations for information about this, and the response
+wasn't helpful.
+
+If you have any ideas on other ways of getting the company registration
+information, Tom would love to know.
+
+==============================
+Is all this okay?
+==============================
+Is it okay that Tom is going to release the data under the Open Data Commons
+Open Database License and that Delaware might get annoyed at you?
+
+If so, type "yes"; if not, hit ctrl+C to exit the program.
 
 '''
     wrong_answer = '''
 You need to type "yes" to run the software. If you are not okay with how
-Tom would redistribute the data, hit ctrl+c.
+Delaware might react or how Tom would redistribute the data, hit ctrl+c.
 
 '''
     if input(question) != 'yes':
