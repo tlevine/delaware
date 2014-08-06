@@ -161,8 +161,6 @@ Add a global rate limit to avoid denying the service of the website;
 if we get like over 9,000 workers running at once, instruct many of them
 not to work for a little while so that we don't crash Delaware's server.
 
-The rate-limit query on the database isn't working. Fix it.
-
 Figure out what the actual rate limit is. Or just stick with something
 arbitrary and low. One company takes about two requests, and we're
 searching a range of 8 million companies; 1600 requests per IP address
