@@ -54,7 +54,8 @@ class Dadabase:
         params = (int((now - TIMESPAN).timestamp()), ip_address)
         sql = 'SELECT count(*) FROM requests WHERE datetime > %d AND ip_address = "%s"' % params
         result = self.disk.query(sql)
-        return next(result)['count(*)'] < LIMIT
+        c = next(result)['count(*)']
+        return c < LIMIT
 
     def increment_file_number(self, file_number):
         self.disk['file_numbers'].insert({'file_number':file_number})
