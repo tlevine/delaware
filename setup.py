@@ -2,7 +2,7 @@ from functools import partial
 import os
 from distutils.core import setup
 
-from shared.version import VERSION
+from delaware_shared.version import VERSION
 
 requirements = [
     'randua>=0.0.1',
@@ -28,7 +28,7 @@ setup(
     extras_require = extras,
     tests_require = ['nose'],
 
-    packages = ['shared', 'manager','worker','reader'][:3],
+    packages = ['delaware_' + suffix for suffix in ['shared', 'manager','worker','reader']],
     data_files = [('certificates', ['certificates/delaware.dada.pink.crt'])],
     scripts = [os.path.join('bin',script) for script in ['delemanager','deleworker','delereader']],
 
