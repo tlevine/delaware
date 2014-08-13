@@ -51,8 +51,9 @@ effort from you as long as you keep the program running.
 Licensing
 ==============================
 Your computer will collect data and send them to Tom, and Tom is going to
-redistribute the data under the Open Data Commons Open Database License
-(http://opendatacommons.org/licenses/odbl/).
+redistribute the data under either the Open Data Commons Open Database License
+(http://opendatacommons.org/licenses/odbl/) or a public domain license, such
+as CC0 (http://creativecommons.org/publicdomain/zero/1.0/).
 
 ==============================
 How Delaware might react
@@ -60,9 +61,8 @@ How Delaware might react
 Tom would like you to know that Delaware might get annoyed at you for running
 this program. Tom heard from other people that this website bans IP addresses
 after they have made a few hundred requests per day. He is skeptical that the
-limit is actually this low, but the point is that you might get banned from the
-website. (He asked the Division of Corporations about, and their response to
-this question was not helpful.)
+limit is actually this low, and Delaware told him that no such limit exists,
+but the point is that you might get banned from the website.
 
 Also, he has heard that Delaware sends scary letters to people who use this
 website, so they might send you one.
@@ -77,7 +77,8 @@ it might be worth looking further into that avenue.
 It may be that some companies (http://corp.delaware.gov/directwebvend.shtml)
 can sell you the data, but Tom isn't sure; he contacted the Delaware
 Division of Corporations for information about this, and the response
-wasn't helpful.
+wasn't helpful. He's working on a freedom of information request about
+these vendors.
 
 If you have any ideas on other ways of getting the company registration
 information, Tom would love to know.
@@ -85,10 +86,10 @@ information, Tom would love to know.
 ==============================
 Is all this okay?
 ==============================
-Is it okay that Tom is going to release the data under the Open Data Commons
-Open Database License and that Delaware might get annoyed at you?
+Is it okay that Tom is going to release the data and that Delaware might
+get annoyed at you?
 
-If so, type "yes"; if not, hit ctrl+C to exit the program.
+If so, type "yes"; if not, hit ctrl+c to exit the program.
 
 '''
     wrong_answer = '''
@@ -101,7 +102,7 @@ Delaware might react or how Tom would redistribute the data, hit ctrl+c.
             pass
 
     default_username = 'Anonymous'
-    username = input('Username [%s]: ' % default_username)
+    username = input('Username (Leave blank for "%s".): ' % default_username)
     if username == '':
         username = default_username
 
