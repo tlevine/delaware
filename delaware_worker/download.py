@@ -77,7 +77,7 @@ def sleep():
     time.sleep(_sleep_seconds())
 
 def _sleep_seconds():
-    return sum(random.randint(0,1) for _ in range(100)) / 10
+    return sum(random.randint(0,1) for _ in range(10)) / 5
 
 def home():
     'Go to the home page. Cache it for records, but don\'t load from cache.'

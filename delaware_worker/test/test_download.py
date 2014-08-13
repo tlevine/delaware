@@ -33,4 +33,4 @@ def test_headers():
 def test_sleep_seconds():
     count = 1000
     histogram = (_sleep_seconds() for _ in range(count))
-    n.assert_greater(sum(histogram) / count, 4.5)
+    n.assert_greater(sum(histogram) / count, 0.9)
