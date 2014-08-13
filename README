@@ -2,24 +2,21 @@ Get Deleware company registration data!
 +++++++++++++++++++++++++++++++++++++++++++++
 
 It might be nice if it were easy to get data about company registrations.
-People tell me that this is a bit hard in Delaware. While much information
-is available through the
+Much information is available through the
 `General Information Name Search <https://delecorp.delaware.gov/tin/GINameSearch.jsp>`_
-site, a single person is only allowed to make so many requests to the site.
-(I'm not sure of the exact number; this is just what other people tell me.)
+site, and the present program queries this website for information.
 
-In order to download all of the data, we are thus getting a bunch of different
-people to all download a small piece of the data, staying within the quota that
-he or she or ze is allowed. **You can help!**
+Installing the worker
+=========================
+The present program is separated into *worker*, *manager*, and *reader*
+components. This is done so that many different workers can be run at once,
+coordinated by a single manager.
 
-You just need to install this program and let it keep running. It will
-periodically contact a central server for directions, and it will query
-Delaware's General Information Name Search accordingly. It does a lot of
-things to check that you are staying within your quota and to avoid crashing
-Delaware's server.
+You probably just need to install the worker and run it; by default, it will
+receive its directions from a manager running on one of Tom's computers.
+It will periodically contact the manager for directions, and it will query
+Delaware's General Information Name Search accordingly.
 
-Installing
-==================
 Two ways of installing are explained below.
 
 Standalone installation
@@ -52,6 +49,30 @@ Once you've installed the program, type this into a terminal. ::
 
 It'll ask you a few questions the first time you run it, but you can totally
 ignore it after that.
+
+How it works
+=================
+When you run ``delaware``, you are running the *worker* program. Tom is
+running the *manager* program. When it starts, your worker contacts Tom's
+manager for directions.
+
+Why would I make such a complicated program?
+
+I've told that some people much difficulty in acquiring the data, and I
+made the present program to deal with the most annoying of difficulties.
+The difficulty is, supposedly, that the website only allows a single IP
+address to make so many requests. One person told me that the limit was
+a few hundred requests per IP address, and another person told me that
+the limit was 3000 requests.
+
+Having used the site myself, I don't think that such a limit exists;
+I haven't managed to hit any of these limits myself, and the Delaware
+Division of Corporations told me that there is no limit. So maybe this
+complicated thing wasn't necessary, but I already wrote it.
+
+But in case there is a limit, the idea is that we can get a bunch of
+different people each to download a small piece of the data, staying
+within the limits for each IP address.
 
 If errors come up
 ========================
