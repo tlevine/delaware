@@ -1,5 +1,6 @@
 import os
 from functools import partial
+import time
 
 import delaware_shared.log
 import delaware_worker.local as local
@@ -22,8 +23,11 @@ def work(local = False):
     delaware_shared.log.output('deleworker',
         filename = os.path.join(os.path.expanduser('~'), '.delaware', 'worker.log'))
     while True:
-        firm_file_number, before_address = get_work(directions, sleep)
-        home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
+        try:
+            firm_file_number, before_address = get_work(directions, sleep)
+            home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
+        except ConnectionError:
+            time.sleep(60) # Wait a minute, and try again.
 
 def get_work(directions, sleep):
     '''
