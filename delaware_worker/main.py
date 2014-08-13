@@ -1,7 +1,6 @@
 import os
 from functools import partial
 import time
-from logging import getLogger
 
 import requests.exceptions
 
@@ -11,8 +10,6 @@ import delaware_worker.download as dl
 import delaware_worker.remote as remote
 import delaware_worker.parse as parse
 from delaware_worker.params import params
-
-logger = getLogger('deleworker')
 
 def work(local = False):
     if local:
@@ -25,7 +22,7 @@ def work(local = False):
     sleep = dl.sleep
     home_response = None
 
-    delaware_shared.log.output('deleworker',
+    logger = delaware_shared.log.output('deleworker',
         filename = os.path.join(os.path.expanduser('~'), '.delaware', 'worker.log'))
     while True:
         try:
