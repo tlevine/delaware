@@ -1,6 +1,9 @@
 import os
 from functools import partial
 import time
+from logging import getLogger
+
+import requests.exceptions
 
 import delaware_shared.log
 import delaware_worker.local as local
@@ -8,6 +11,8 @@ import delaware_worker.download as dl
 import delaware_worker.remote as remote
 import delaware_worker.parse as parse
 from delaware_worker.params import params
+
+logger = getLogger('deleworker')
 
 def work(local = False):
     if local:
@@ -26,7 +31,8 @@ def work(local = False):
         try:
             firm_file_number, before_address = get_work(directions, sleep)
             home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
-        except ConnectionError:
+        except requests.exceptions.ConnectionError:
+            logger.info('Waiting a minute because the internet connection is bad')
             time.sleep(60) # Wait a minute, and try again.
 
 def get_work(directions, sleep):
