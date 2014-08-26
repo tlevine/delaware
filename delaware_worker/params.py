@@ -64,9 +64,6 @@ after they have made a few hundred requests per day. He is skeptical that the
 limit is actually this low, and Delaware told him that no such limit exists,
 but the point is that you might get banned from the website.
 
-Also, he has heard that Delaware sends scary letters to people who use this
-website, so they might send you one.
-
 ==============================
 Why access the data this way
 ==============================
@@ -74,11 +71,9 @@ It would be nice if there were a better way to get these data. Tom heard that
 the Division of Corporations is exempt from freedom of information law, but
 it might be worth looking further into that avenue.
 
-It may be that some companies (http://corp.delaware.gov/directwebvend.shtml)
-can sell you the data, but Tom isn't sure; he contacted the Delaware
-Division of Corporations for information about this, and the response
-wasn't helpful. He's working on a freedom of information request about
-these vendors.
+Some companies (http://corp.delaware.gov/directwebvend.shtml) have a more
+clean way of accessing the data, but they have to pay $10 every time they
+look up information about a company.
 
 If you have any ideas on other ways of getting the company registration
 information, Tom would love to know.
