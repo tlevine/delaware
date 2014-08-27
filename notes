@@ -81,3 +81,76 @@ Thus, I think "File Number" is a decent way to look up companies.
 Technical things
 =================
 We use ``POST`` to avoid cache issues.
+
+
+
+
+This happens sometimes. I don't know why.
+
+    Received directions to query 5599794
+    Downloaded https://delecorp.delaware.gov/tin/controller for file number 5599794
+    Uploaded a 5599794 response
+    Traceback (most recent call last):
+      File "/usr/bin/delaware", line 15, in <module>
+        main()
+      File "/usr/lib/python3.4/site-packages/delaware_worker/main.py", line 30, in work
+        home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
+      File "/usr/lib/python3.4/site-packages/delaware_worker/main.py", line 66, in do_work
+        result_response = dl.result(search_response, firm_file_number)
+      File "/usr/lib/python3.4/site-packages/delaware_worker/download.py", line 101, in result
+        response = _result(firm_file_number, user_agent = user_agent, cookie = cookie)
+      File "/usr/lib/python3.4/site-packages/picklecache/picklecache.py", line 46, in wrapper
+        raise error
+      File "/usr/lib/python3.4/site-packages/picklecache/picklecache.py", line 36, in wrapper
+        result = func(*_args, **_kwargs)
+      File "/usr/lib/python3.4/site-packages/delaware_worker/download.py", line 74, in _result
+        data = data['result'] % firm_file_number, allow_redirects = False)
+      File "/usr/lib/python3.4/site-packages/requests/api.py", line 88, in post
+        return request('post', url, data=data, **kwargs)
+      File "/usr/lib/python3.4/site-packages/requests/api.py", line 44, in request
+        return session.request(method=method, url=url, **kwargs)
+      File "/usr/lib/python3.4/site-packages/requests/sessions.py", line 456, in request
+        resp = self.send(prep, **send_kwargs)
+      File "/usr/lib/python3.4/site-packages/requests/sessions.py", line 596, in send
+        r.content
+      File "/usr/lib/python3.4/site-packages/requests/models.py", line 694, in content
+        self._content = bytes().join(self.iter_content(CONTENT_CHUNK_SIZE)) or bytes()
+      File "/usr/lib/python3.4/site-packages/requests/models.py", line 627, in generate
+        for chunk in self.raw.stream(chunk_size, decode_content=True):
+      File "/usr/lib/python3.4/site-packages/requests/packages/urllib3/response.py", line 240, in stream
+        data = self.read(amt=amt, decode_content=decode_content)
+      File "/usr/lib/python3.4/site-packages/requests/packages/urllib3/response.py", line 187, in read
+        data = self._fp.read(amt)
+      File "/usr/lib/python3.4/http/client.py", line 500, in read
+        return super(HTTPResponse, self).read(amt)
+      File "/usr/lib/python3.4/http/client.py", line 539, in readinto
+        n = self.fp.readinto(b)
+      File "/usr/lib/python3.4/socket.py", line 371, in readinto
+        return self._sock.recv_into(b)
+      File "/usr/lib/python3.4/ssl.py", line 746, in recv_into
+        return self.read(nbytes, buffer)
+      File "/usr/lib/python3.4/ssl.py", line 618, in read
+        v = self._sslobj.read(len, buffer)
+    ConnectionResetError: [Errno 104] Connection reset by peer
+
+
+
+This means I got blocked.
+
+    [tlevine@arch delaware]$ PYTHONPATH=. ./bin/delaware 
+    Received directions to query 6828000
+    Downloaded https://delecorp.delaware.gov/tin/GINameSearch.jsp
+    Uploaded a 6828000 response
+    Traceback (most recent call last):
+      File "./bin/delaware", line 15, in <module>
+        main()
+      File "/home/tlevine/git/delaware/delaware_worker/main.py", line 34, in work
+        home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
+      File "/home/tlevine/git/delaware/delaware_worker/main.py", line 65, in do_work
+        search_response = dl.search(home_response, firm_file_number)
+      File "/home/tlevine/git/delaware/delaware_worker/download.py", line 92, in search
+        cookie = home_response.headers['Set-Cookie'].split('; ')[0]
+      File "/usr/lib/python3.4/site-packages/requests/structures.py", line 77, in __getitem__
+        return self._store[key.lower()][1]
+    KeyError: 'set-cookie'
+
