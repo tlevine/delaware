@@ -2,9 +2,9 @@
 import sys
 
 from delaware_reader.main import main
-from delaware_shared.version import check_version
+# from delaware_shared.version import check_version
 
-check_version()
+# check_version()
 
 try:
     main()
