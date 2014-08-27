@@ -154,3 +154,17 @@ This means I got blocked.
         return self._store[key.lower()][1]
     KeyError: 'set-cookie'
 
+
+    In [5]: with open('02:41:19', 'rb') as fp:                                           
+       ...:     e, r = pickle.load(fp)
+       ...:     
+
+    In [6]: r
+    Out[6]: <Response [301]>
+
+    In [7]: r.status_code
+    Out[7]: 301
+
+    In [8]: r.text
+    Out[8]: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\n<html><head>\n<title>301 Moved Permanently</title>\n</head><body>\n<h1>Moved Permanently</h1>\n<p>The document has moved <a href="http://corp.delaware.gov/blocked.shtml">here</a>.</p>\n<hr>\n<address>Apache/2.2.3 (Oracle) Server at delecorp.delaware.gov Port 443</address>\n</body></html>\n'
+
