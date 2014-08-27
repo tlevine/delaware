@@ -24,13 +24,18 @@ def work(local = False):
 
     logger = delaware_shared.log.output('deleworker',
         filename = os.path.join(os.path.expanduser('~'), '.delaware', 'worker.log'))
+    def bad_connection():
+        logger.info('Waiting a minute because the internet connection is bad')
+        time.sleep(60) # Wait a minute, and try again.
+
     while True:
         try:
             firm_file_number, before_address = get_work(directions, sleep)
             home_response = do_work(home_response, firm_file_number, partial(respond, before_address, firm_file_number))
         except requests.exceptions.ConnectionError:
-            logger.info('Waiting a minute because the internet connection is bad')
-            time.sleep(60) # Wait a minute, and try again.
+            bad_connection()
+        except ConnectionResetError:
+            bad_connection()
 
 def get_work(directions, sleep):
     '''
