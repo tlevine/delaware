@@ -26,6 +26,8 @@ def parse(data):
     '''
     if is_entity_detail(data):
         return parse_entity_detail(data)
+    else:
+        raise ValueError('Could not interpret response.')
 
 def text_contents(nodes):
     return (node.text_content() for node in nodes)
