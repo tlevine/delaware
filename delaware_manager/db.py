@@ -92,7 +92,7 @@ class Dadabase:
 
         data = {
             'date': now.isoformat(),
-            'ip_address': request.remote_addr[0],
+            'ip_address': request.remote_addr,
             'method': request.method,
             'url': request.url,
             'body': body,

@@ -25,7 +25,7 @@ def log():
 
 def rate_limit(f):
     def wrapper():
-        if db.under_limit(bottle.request.remote_route[0]):
+        if db.under_limit(bottle.request.remote_addr):
             return f()
         else:
             return None, 429
@@ -35,9 +35,8 @@ def rate_limit(f):
 @rate_limit
 def directions():
     db.save_request(bottle.request)
-    ip_address = bottle.request.remote_route[0]
     return {
-        'ip_address': ip_address,
+        'ip_address': bottle.request.remote_addr,
         'file_number': db.file_number(),
     }
 
@@ -45,9 +44,8 @@ def directions():
 @rate_limit
 def response():
     db.save_request(bottle.request)
-    ip_address = bottle.request.remote_route
     return {
-        'ip_address': ip_address,
+        'ip_address': bottle.request.remote_addr,
     }
 
 @b.get('/')
