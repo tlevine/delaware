@@ -24,19 +24,23 @@ def parse(data):
     determine whether it is a result page. If it is, return an
     OrderedDict of the results. Otherwise, return None.
     '''
-    if is_entity_detail(data):
-        return parse_entity_detail(data)
-    elif data['url'] == 'http://delaware.dada.pink/directions':
+    if data['url'] == 'http://delaware.dada.pink/directions':
         # Initial requests for directions
         pass
-    elif 'action=Search' in r['body']['response']['request']['body']:
+    elif 'action=Search' in data['body']['response']['request']['body']:
         # Search result
         pass
     elif blocked(data):
         # Computer has been blocked.
         pass
+    elif 'Entity Details are not available for the entity you selected.' in \
+        data['body']['response']['text']:
+        # No results
+        pass
+    elif is_entity_detail(data):
+        return parse_entity_detail(data)
     else:
-        raise ValueError('Not an entity detail')
+        raise ValueError('I do not understand this response.')
 
 def blocked(data):
     return data['body']['response']['status_code'] == 301 and \
