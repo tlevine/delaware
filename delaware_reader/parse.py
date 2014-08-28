@@ -26,7 +26,14 @@ def parse(data):
     '''
     if is_entity_detail(data):
         return parse_entity_detail(data)
+    elif data['url'] == 'http://delaware.dada.pink/directions':
+        # Initial requests for directions
+        pass
+    elif 'action=Search' in r['body']['response']['request']['body']:
+        # Search result
+        pass
     elif blocked(data):
+        # Computer has been blocked.
         pass
     else:
         raise ValueError('Not an entity detail')
