@@ -26,6 +26,14 @@ def parse(data):
     '''
     if is_entity_detail(data):
         return parse_entity_detail(data)
+    elif blocked(data):
+        pass
+    else:
+        raise ValueError('Not an entity detail')
+
+def blocked(data):
+    return data['body']['response']['status_code'] == 301 and \
+        'http://corp.delaware.gov/blocked.shtml' in data['body']['response']['text']
 
 def text_contents(nodes):
     return (node.text_content() for node in nodes)
