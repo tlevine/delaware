@@ -14,8 +14,8 @@ def main():
             data = json.load(fp)
         try:
             result = parse.parse(data)
-        except:
-            sys.stderr.write('Error at %s\n' % filename)
+        except Exception as e:
+            sys.stderr.write('Error at %s: %s\n' % (filename, e))
         else:
             if result != None:
                 sink.writerow(result)

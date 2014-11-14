@@ -45,6 +45,7 @@ def parse(data):
 def blocked(data):
     return data['body']['response']['status_code'] == 301 and \
         'http://corp.delaware.gov/blocked.shtml' in data['body']['response']['text']
+        raise ValueError('Could not interpret response.')
 
 def text_contents(nodes):
     return (node.text_content() for node in nodes)
