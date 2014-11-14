@@ -1,0 +1,4 @@
+* Remove unnecessary information from the response (from Delaware)
+    in the worker before uploading it to the manager.
+* Write better checks as to whether the page is being blocked.
+* Figure out the criteria for blocking.
